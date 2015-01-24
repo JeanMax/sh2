@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   double_right.c                                     :+:      :+:    :+:   */
+/*   simple_pipe.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/01/23 22:48:44 by mcanal            #+#    #+#             */
-/*   Updated: 2015/01/25 00:07:30 by mcanal           ###   ########.fr       */
+/*   Created: 2015/01/24 20:08:46 by mcanal            #+#    #+#             */
+/*   Updated: 2015/01/25 00:14:43 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /*
-** append output (>>) handler
+** pipe (|) handler
 */
 
 #include "header.h"
 
-void	double_right(char **cmd, t_env *e)
+void	simple_pipe(char **cmd, t_env *e)
 {
-	cmd = cmd;
-	e = e;
-	ft_debugstr("double_right", "hey!");
+    cmd = cmd;
+    e = e;
+    ft_debugstr("pipe", "hey!");
 }

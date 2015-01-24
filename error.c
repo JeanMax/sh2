@@ -6,7 +6,7 @@
 /*   By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/12 03:39:12 by mcanal            #+#    #+#             */
-/*   Updated: 2015/01/20 12:11:41 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/01/24 23:49:31 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ void	error(char *type, char *msg)
 {
 	if (type[0] == 'c')
 	{
-		ft_putstr("sh1: command not found: ");
+		ft_putstr("sh2: command not found: ");
 		ft_putendl(msg);
 	}
 	else if (type[0] == 'e')
 	{
-		ft_putstr("sh1: no such file or directory: ");
+		ft_putstr("sh2: no such file or directory: ");
 		ft_putendl(msg);
 	}
 	else if (type[0] == 'b')

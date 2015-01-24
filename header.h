@@ -6,7 +6,7 @@
 /*   By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/29 13:23:15 by mcanal            #+#    #+#             */
-/*   Updated: 2015/01/23 22:37:11 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/01/25 00:14:00 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 ** define
 */
 # define HEADER_H
-# define PROMPT { ft_putstr_clr("$MinniChelDe> ", "white"); }
 # define PATH_SIZE 128
 
 /*
@@ -43,17 +42,28 @@ struct	s_env
 /*
 ** prototypes
 */
+void    simple_right(char **cmd, t_env *e);
+void    simple_left(char **cmd, t_env *e);
+void    simple_pipe(char **cmd, t_env *e);
+void    double_left(char **cmd, t_env *e);
+void	double_right(char **cmd, t_env *e);
+void	redirect(char **cmd, t_env *e);
+void	semicolon(char *line, t_env *e);
+void	init(int ac, char **ae, t_env *e);
+void	prompt(t_env *e);
 void	error(char *type, char *msg);
-void	call_execve(char *cmd, char **av, char **ae, t_env *e);
-void	get_path(char **ae, t_env *e);
+void	call_execve(char **cmd, t_env *e);
+void	get_path(t_env *e);
 void	get_builtin(t_env *e);
 char	*get_env(char *var, t_env *e);
-void	launch_builtin(int b, char **av, char **ae, t_env *e);
-void	prompt_loop(int ac, char **av, char **ae);
+char	**cpy_env(char **ae, char *val);
+void	launch_cmd(char **cmd, t_env *e);
+void	launch_builtin(int b, char **av, t_env *e);
+void	prompt_loop(char **av, t_env *e);
 void	ft_exit(int ac, char **av);
-void	ft_env(char **av, char **ae, t_env *e);
+void	ft_env(char **av, t_env *e);
 void	ft_cd(char **av, t_env *e);
-void	ft_setenv(char **ac, char **ae, t_env *e);
-void	ft_unsetenv(char **ac, char **ae, t_env *e);
+void	ft_setenv(char **ac, t_env *e);
+void	ft_unsetenv(char **ac, t_env *e);
 
 #endif

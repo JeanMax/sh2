@@ -6,6 +6,19 @@
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/23 22:48:29 by mcanal            #+#    #+#             */
-/*   Updated: 2015/01/23 22:48:30 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/01/25 00:09:06 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+/*
+** here document (<<) handler
+*/
+
+#include "header.h"
+
+void    double_left(char **cmd, t_env *e)
+{
+    cmd = cmd;
+    e = e;
+    ft_debugstr("double_left", "hey!");
+}
