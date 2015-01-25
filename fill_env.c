@@ -6,7 +6,7 @@
 /*   By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/12 07:46:30 by mcanal            #+#    #+#             */
-/*   Updated: 2015/01/24 23:16:12 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/01/25 15:07:51 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 */
 
 #include "header.h"
-#include <stdlib.h>
 
 char	**cpy_env(char **ae, char *val)
 {

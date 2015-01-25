@@ -6,7 +6,7 @@
 #    By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/29 13:16:03 by mcanal            #+#    #+#              #
-#    Updated: 2015/01/25 00:15:07 by mcanal           ###   ########.fr        #
+#    Updated: 2015/01/25 18:48:01 by mcanal           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -19,7 +19,7 @@ SRCC = 	main.c				error.c				fill_env.c			\
 		redirection/redirection.c		redirection/semicolon.c		\
 		redirection/simple_right.c		redirection/simple_left.c	\
 		redirection/double_right.c		redirection/double_left.c	\
-		redirection/simple_pipe.c	
+		redirection/simple_pipe.c		redirection/space_error.c
 
 SRCO = zboub
 

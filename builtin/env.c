@@ -6,7 +6,7 @@
 /*   By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/12 07:42:03 by mcanal            #+#    #+#             */
-/*   Updated: 2015/01/24 23:16:40 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/01/25 15:08:31 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 */
 
 #include "header.h"
-#include <stdlib.h>
 
 static char		**check_cmd(char **av)
 {

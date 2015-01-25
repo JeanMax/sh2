@@ -6,40 +6,38 @@
 /*   By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/12 03:39:12 by mcanal            #+#    #+#             */
-/*   Updated: 2015/01/24 23:49:31 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/01/25 16:29:14 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /*
 ** errors handling
+** type: c = command not found, e = no such file, b = bus error, s = segfault,
+**		 f = floating-point excepion, a = too many arg, p = $PATH not found
+**		 e = execve error, c = cmd not found, o = open
 */
 
 #include "header.h"
 
-void	error(char *type, char *msg)
+void		error(char *type, char *msg)
 {
 	if (type[0] == 'c')
-	{
-		ft_putstr("sh2: command not found: ");
-		ft_putendl(msg);
-	}
+		ft_putstr_fd("sh2: command not found: ", 2);
 	else if (type[0] == 'e')
-	{
-		ft_putstr("sh2: no such file or directory: ");
-		ft_putendl(msg);
-	}
+		ft_putstr_fd("sh2: no such file or directory: ", 2);
+	else if (type[0] == 'o')
+		ft_putstr_fd("sh2: can't make file: ", 2);
+	if (type[0] == 'c' || type[0] == 'e' || type[0] == 'o')
+		ft_putendl_fd(msg, 2);
 	else if (type[0] == 'b')
-		ft_putendl("Bus error. Try Again...");
+		ft_putendl_fd("Bus error. Try Again...", 2);
 	else if (type[0] == 's')
-		ft_putendl("Segmentation fault. Try Again...");
+		ft_putendl_fd("Segmentation fault. Try Again...", 2);
 	else if (type[0] == 'f')
-		ft_putendl("Floating-point exception. Try Again...");
+		ft_putendl_fd("Floating-point exception. Try Again...", 2);
 	else if (type[0] == 'a')
-		ft_putendl("Too many arguments.");
+		ft_putendl_fd("Too many arguments.", 2);
 	else if (type[0] == 'p')
-		ft_putendl("$PATH missing from env.");
-	if (type[0] == 'c' || type[0] == 'e')
-		exit(1);
-	else
-		exit (-1);
+		ft_putendl_fd("$PATH missing from env.", 2);
+	exit((type[0] == 'c' || type[0] == 'e') ? 1 : -1);
 }

@@ -6,7 +6,7 @@
 /*   By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/12 07:40:00 by mcanal            #+#    #+#             */
-/*   Updated: 2015/01/25 00:02:47 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/01/25 15:08:45 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 ** cd builtin
 */
 
-#include <sys/stat.h>
 #include "header.h"
 
 static char	**set_av(char *s1, char *s2, t_env *e, int go)

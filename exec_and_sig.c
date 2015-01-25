@@ -6,7 +6,7 @@
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/23 21:32:33 by mcanal            #+#    #+#             */
-/*   Updated: 2015/01/25 00:04:08 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/01/25 19:46:33 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void		launch_cmd(char **cmd, t_env *e)
 		if (ft_strchr(cmd[i], '>') || ft_strchr(cmd[i], '<')\
 			|| ft_strchr(cmd[i++], '|'))
 		{
-			redirect(cmd, e);
+			redirect(cmd, e, 0);
 			return ;
 		}
 	i = 7;
@@ -123,6 +123,6 @@ void		prompt_loop(char **av, t_env *e)
 		cmd = ft_strsplit(line, ' ');		
 		launch_cmd(cmd, e);
 		ft_memdel((void *)&line);
-		ft_freetab(cmd);
+		cmd[0] ? ft_freetab(cmd) : NULL;
 	}
 }
