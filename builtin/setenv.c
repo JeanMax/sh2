@@ -6,7 +6,7 @@
 /*   By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/12 07:40:39 by mcanal            #+#    #+#             */
-/*   Updated: 2015/01/24 23:14:00 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/01/28 17:38:53 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ void			ft_setenv(char **av, t_env *e)
 	ac = 0;
 	while (av[ac])
 		ac++;
-	ac == 1 ? launch_builtin(4, av, e) : NULL;
+	ac == 1 ? ft_strcpy(av[0], "env") : NULL;
+	ac == 1 ? launch_builtin(av, e) : NULL;
 	ac > 3 ? ft_putendl("setenv: Too many arguments.") : NULL;
 	if (ac == 1 || ac > 3)
 		return ;

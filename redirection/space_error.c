@@ -6,7 +6,7 @@
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/25 18:44:22 by mcanal            #+#    #+#             */
-/*   Updated: 2015/01/25 21:30:37 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/01/26 17:43:43 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,14 @@ static int	spaces_error_aux_b(char **cmd, char **new_cmd, char *c)
 
 static void	spaces_error_aux_a(char **cmd, char **new_cmd, char *c)
 {
-    int i;
+	int	i;
 	int	j;
 
-    i = 0;
-    while (cmd[i])
-    {
-        if (!ft_strchr(cmd[i], c[0]))
-            new_cmd[j] = ft_strdup(cmd[i]);
+	i = 0;
+	while (cmd[i])
+	{
+		if (!ft_strchr(cmd[i], c[0]))
+			new_cmd[j] = ft_strdup(cmd[i]);
 		else if (ft_strindex(cmd[i], c[0]) == 0)
 		{
 			new_cmd[j] = ft_strdup(c);
@@ -57,9 +57,9 @@ static void	spaces_error_aux_a(char **cmd, char **new_cmd, char *c)
 		}
 		else
 			j += spaces_error_aux_b(&cmd[i], &new_cmd[j], c);
-        i++;
+		i++;
 		j++;
-    }
+	}
 }
 
 static void	del_multi(char **cmd, char *c)
@@ -99,32 +99,32 @@ static char	**check_multi(char **cmd, char *c)
 	return (cmd);
 }
 
-char        **spaces_error(char **cmd, char *c)
+char		**spaces_error(char **cmd, char *c)
 {
-    char    **new_cmd;
-    int     i;
-    int     j;
+	char	**new_cmd;
+	int		i;
+	int		j;
 
-    i = 0;
+	i = 0;
 	cmd = check_multi(cmd, c);
-    while (cmd[i] && ft_strcmp(cmd[i], c))
-        i++;
-    if (cmd[i])
+	while (cmd[i] && ft_strcmp(cmd[i], c))
+		i++;
+	if (cmd[i])
 		return (cmd);
-    i = 0;
-    j = 0;
-    while (cmd[i])
-    {
-        if (ft_strindex(cmd[i], c[0]) != 0 && ft_strindex(cmd[i], c[0]) != -1\
-            && ft_strrindex(cmd[i], c[0]) != (int)ft_strlen(cmd[i]) - 1)
-            j += 2;
-        else if (ft_strchr(cmd[i], c[0]))
-            j += 1;
-        i++;
-    }
-    new_cmd = malloc(sizeof(char *) * (j + i + 1));
-    new_cmd[j + i] = ft_strnew(1);
-    new_cmd[j + i] = NULL;
-    spaces_error_aux_a(cmd, new_cmd, c);
-    return (new_cmd);
+	i = 0;
+	j = 0;
+	while (cmd[i])
+	{
+		if (ft_strindex(cmd[i], c[0]) != 0 && ft_strindex(cmd[i], c[0]) != -1\
+			&& ft_strrindex(cmd[i], c[0]) != (int)ft_strlen(cmd[i]) - 1)
+			j += 2;
+		else if (ft_strchr(cmd[i], c[0]))
+			j += 1;
+		i++;
+	}
+	new_cmd = malloc(sizeof(char *) * (j + i + 1));
+	new_cmd[j + i] = ft_strnew(1);
+	new_cmd[j + i] = NULL;
+	spaces_error_aux_a(cmd, new_cmd, c);
+	return (new_cmd);
 }

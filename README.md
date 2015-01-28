@@ -8,4 +8,5 @@ fsh inside! (FlexShell)
 * handle some more signals : ctrl-z (SIGTSTP, suspend)... stty -a for more infos
 * memory leaks in cd, setenv, unsetenv, space_error... probably some more
 * > and >> : weird behaviour with echo
+* another weird behaviour wrong handled : "ls > 1 2 > 3" -> wrote "2" in 3 if 2 exist
 * handle mixed redirection ):

@@ -6,14 +6,14 @@
 #    By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/29 13:16:03 by mcanal            #+#    #+#              #
-#    Updated: 2015/01/25 18:48:01 by mcanal           ###   ########.fr        #
+#    Updated: 2015/01/28 16:28:40 by mcanal           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
 NAME = ft_minishell2
 
 SRCC = 	main.c				error.c				fill_env.c			\
-		exec_and_sig.c		prompt.c								\
+		fork_and_sig.c		prompt.c			exec.c				\
 		builtin/builtin.c	builtin/exit.c		builtin/env.c		\
 		builtin/unsetenv.c	builtin/cd.c		builtin/setenv.c	\
 		redirection/redirection.c		redirection/semicolon.c		\

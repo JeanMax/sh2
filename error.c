@@ -6,7 +6,7 @@
 /*   By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/12 03:39:12 by mcanal            #+#    #+#             */
-/*   Updated: 2015/01/25 16:29:14 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/01/28 16:52:37 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 ** errors handling
 ** type: c = command not found, e = no such file, b = bus error, s = segfault,
 **		 f = floating-point excepion, a = too many arg, p = $PATH not found
-**		 e = execve error, c = cmd not found, o = open
+**		 e = execve error, c = cmd not found, o = open, F = fork fail,
+**		 P = pipe fail
 */
 
 #include "header.h"
@@ -31,6 +32,10 @@ void		error(char *type, char *msg)
 		ft_putendl_fd(msg, 2);
 	else if (type[0] == 'b')
 		ft_putendl_fd("Bus error. Try Again...", 2);
+	else if (type[0] == 'P')
+		ft_putendl_fd("Pipe failed. Try Again...", 2);
+	else if (type[0] == 'F')
+		ft_putendl_fd("Fork failed. Try Again...", 2);
 	else if (type[0] == 's')
 		ft_putendl_fd("Segmentation fault. Try Again...", 2);
 	else if (type[0] == 'f')

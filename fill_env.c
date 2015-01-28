@@ -6,7 +6,7 @@
 /*   By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/12 07:46:30 by mcanal            #+#    #+#             */
-/*   Updated: 2015/01/25 15:07:51 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/01/28 18:59:26 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 #include "header.h"
 
-char	**cpy_env(char **ae, char *val)
+char	**cpy_env(char **ae, char *val) //libft?
 {
 	int		i;
 	char	**new_env;

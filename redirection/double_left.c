@@ -6,7 +6,7 @@
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/23 22:48:29 by mcanal            #+#    #+#             */
-/*   Updated: 2015/01/25 00:09:06 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/01/28 17:18:41 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 #include "header.h"
 
-void    double_left(char **cmd, t_env *e)
+void    doble_left(char **cmd, t_env *e)
 {
     cmd = cmd;
     e = e;

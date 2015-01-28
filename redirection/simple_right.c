@@ -6,7 +6,7 @@
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/23 22:48:09 by mcanal            #+#    #+#             */
-/*   Updated: 2015/01/26 00:07:33 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/01/28 15:40:01 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	check_error(char **cmd, char *pgm)
 				ft_putstr_fd(": cannot access ", 2);
 			}
 			else
-                ft_putstr_fd(": ", 2);
+				ft_putstr_fd(": ", 2);
 			ft_putstr_fd(cmd[i], 2);
 			ft_putendl_fd(": No such file or directory ", 2);
 		}
@@ -56,7 +56,7 @@ static char	**check_cmd(char **cmd)
 	check_error(&cmd[i], cmd[0]);
 	j = ac - 1;
 	while (cmd[j] && ft_strcmp(">", cmd[j]))
-        j--;
+		j--;
 	if (i == j)
 		return (cmd);
 	cmd[i + 1] = cmd[j + 1];
@@ -78,7 +78,7 @@ void		simple_right(char **cmd, t_env *e)
 	cmd = check_cmd(cmd);
 	i = 0;
 	while (cmd[i] && ft_strcmp(cmd[i], ">"))
-        i++;
+		i++;
 	if (!cmd[i + 1])
 		ft_putendl_fd("Missing name for redirect.", 2);
 	else if (!ft_strcmp(cmd[0], ">"))
@@ -87,11 +87,9 @@ void		simple_right(char **cmd, t_env *e)
 		return ;
 	if ((file_fd = open(cmd[i + 1], O_WRONLY | O_CREAT | O_TRUNC, 0664)) < 0)
 		error("open", cmd[i + 1]);
-	while (cmd[i])
-	{
+	i--;
+	while (cmd[++i])
 		cmd[i] = NULL;
-		i++;
-	}
 	base_fd = dup(1);
 	dup2(file_fd, 1);
 	launch_cmd(cmd, e);

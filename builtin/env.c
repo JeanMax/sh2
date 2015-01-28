@@ -6,7 +6,7 @@
 /*   By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/12 07:42:03 by mcanal            #+#    #+#             */
-/*   Updated: 2015/01/25 15:08:31 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/01/28 16:29:51 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void			ft_env(char **av, t_env *e)
 	}
 	av = e->env;
 	e->env = new_ae;
-	cmd	? call_execve(&cmd[0], e) : 0;
+	cmd	? fork_it(&cmd[0], e) : 0;
 	e->env = av;
 	new_ae ? ft_freetab(new_ae) : 0;
 	e->first_l ? ft_lclean(&(e->first_l)) : 0;

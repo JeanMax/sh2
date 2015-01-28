@@ -6,7 +6,7 @@
 /*   By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/12 07:40:00 by mcanal            #+#    #+#             */
-/*   Updated: 2015/01/25 15:08:45 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/01/28 17:30:32 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static void	go_home(t_env *e)
 	pwd = get_env("PWD", e);
 	if (!(av = set_av("OLDPWD", pwd, e, 0)))
 		return ;
-	launch_builtin(2, av, e);
+	launch_builtin(av, e);
 	ft_freetab(av);
 	if (!ft_strcmp(pwd, home))
 	{
@@ -91,7 +91,7 @@ static void go_previous(t_env *e)
 		return ;
 	if (!(av2 = set_av("PWD", "OLDPWD", e, 1)))
 		return ;
-	launch_builtin(2, av1, e);
+	launch_builtin(av1, e);
 	ft_memdel((void *)&home);
 	ft_memdel((void *)&to_free);
 	ft_freetab(av1);
@@ -117,7 +117,7 @@ static void	go_to(char *path, t_env *e)
 	if (!(av = set_av("OLDPWD", pwd, e, 0)))
 		return ;
 	ft_memdel((void *)&pwd);
-	launch_builtin(2, av, e);
+	launch_builtin(av, e);
 	ft_freetab(av);
 	if (!(av = set_av("PWD", path, e, 1)))
 		return ;
@@ -150,7 +150,7 @@ void		ft_cd(char **av, t_env *e)
 	if (!(av = set_av("PWD", ft_strncmp(pwd, "/Volumes/Data", 13) ?
 						pwd : pwd + 13, e, 1)))
 		return ;
-	launch_builtin(2, av, e);
+	launch_builtin(av, e);
 	ft_memdel((void *)&pwd);
 	ft_freetab(av);
 }
