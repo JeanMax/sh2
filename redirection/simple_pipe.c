@@ -6,7 +6,7 @@
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/24 20:08:46 by mcanal            #+#    #+#             */
-/*   Updated: 2015/01/28 22:56:49 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/01/30 22:52:51 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void		fork_that(char **cmd1, char **cmd2, t_env *e)
 	}
 }
 
-void		simple_pipe(char **cmd, t_env *e)
+void			simple_pipe(char **cmd, t_env *e)
 {
 	int		i;
 	char	**new_cmd;

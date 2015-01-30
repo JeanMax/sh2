@@ -6,7 +6,7 @@
 /*   By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/10 00:12:49 by mcanal            #+#    #+#             */
-/*   Updated: 2015/01/24 23:44:32 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/01/30 22:48:10 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 int				main(int ac, char **av, char **ae)
 {
-	t_env   e;
+	t_env	e;
 
 	init(ac, ae, &e);
 	prompt_loop(av, &e);

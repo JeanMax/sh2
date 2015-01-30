@@ -6,7 +6,7 @@
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/23 21:32:33 by mcanal            #+#    #+#             */
-/*   Updated: 2015/01/28 20:30:04 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/01/30 22:52:18 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void		sig_handl(int sig)
 		prompt(g_env);
 }
 
-void	init(int ac, char **ae, t_env *e)
+void			init(int ac, char **ae, t_env *e)
 {
 	ac > 1 ? error("arg", NULL) : 0;
 	signal(SIGINT, sig_handl);
@@ -67,7 +67,7 @@ void	init(int ac, char **ae, t_env *e)
 	ft_putstr("\033[2J\033[1;1H");
 }
 
-void		launch_cmd(char **cmd, t_env *e)
+void			launch_cmd(char **cmd, t_env *e)
 {
 	int	i;
 
@@ -84,7 +84,7 @@ void		launch_cmd(char **cmd, t_env *e)
 	is_builtin(cmd, e) ? launch_builtin(cmd, e) : fork_it(cmd, e);
 }
 
-void		prompt_loop(char **av, t_env *e)
+void			prompt_loop(char **av, t_env *e)
 {
 	char	*line;
 	char	**cmd;

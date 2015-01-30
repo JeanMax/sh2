@@ -6,7 +6,7 @@
 /*   By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/12 07:41:27 by mcanal            #+#    #+#             */
-/*   Updated: 2015/01/24 23:06:52 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/01/30 22:49:56 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ void	del_env(char *del, t_env *e)
 	int	j;
 
 	j = 0;
-	while ((e->env)[j] && ft_strncmp((e->env)[j], del, 
-				(int)ft_strlen(del) > ft_strindex((e->env)[j], '=') ?
-				(int)ft_strlen(del) : ft_strindex((e->env)[j], '=')))
+	while ((e->env)[j] && ft_strncmp((e->env)[j], del,
+						(int)ft_strlen(del) > ft_strindex((e->env)[j], '=') ?
+						(int)ft_strlen(del) : ft_strindex((e->env)[j], '=')))
 		j++;
 	while ((e->env)[j + 1])
 	{
