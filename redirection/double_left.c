@@ -6,7 +6,7 @@
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/23 22:48:29 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/03 21:07:28 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/05 00:48:49 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ static void			fork_that(char **cmd, t_env *e, int *pipe_fd, char *all)
 		close(pipe_fd[0]);
 		launch_cmd(cmd, e);
 		dup2(save_fd0, 0);
-        close(save_fd0);
-        exit(0);
+		close(save_fd0);
+		exit(0);
 	}
 	else
 	{
@@ -42,7 +42,7 @@ static void			fork_that(char **cmd, t_env *e, int *pipe_fd, char *all)
 		ft_putstr_fd(all, pipe_fd[1]);
 		close(pipe_fd[1]);
 		dup2(save_fd1, 1);
-        close(save_fd1);
+		close(save_fd1);
 		wait(NULL);
 	}
 }
@@ -83,6 +83,7 @@ static void			get_text(char **a, char *here)
 
 	to_free = ft_strjoin(here, "\n");
 	*a = ft_strnew(1);
+	ft_putstr("? ");
 	while (get_that_line(0, &tmp))
 	{
 		if (!ft_strcmp(tmp, to_free))
@@ -90,11 +91,29 @@ static void			get_text(char **a, char *here)
 			ft_memdel((void *)&to_free);
 			break ;
 		}
+		ft_putstr("? ");
 		len = ft_strlen(*a);
 		*a = (char *)ft_realloc((void *)*a, len, len + ft_strlen(tmp));
 		ft_strcat(*a, tmp);
 	}
 	ft_memdel((void *)&to_free);
+}
+
+static void			compress_cmd(char **cmd, int i)
+{
+	int				j;
+
+	j = i + 1;
+	while (cmd[j] && !ft_strchr(cmd[j], '>') && !ft_strchr(cmd[j], '<')\
+			&& !ft_strchr(cmd[j], '|'))
+		j++;
+	j = cmd[j] ? j - 1 : 0;
+	i = j ? i - 1 : i;
+	while (j && cmd[i++ + j])
+		cmd[i] = cmd[i + j];
+	i--;
+	while (cmd[++i])
+		cmd[i] = NULL;
 }
 
 void				doble_left(char **cmd, t_env *e)
@@ -114,9 +133,7 @@ void				doble_left(char **cmd, t_env *e)
 	if (!cmd[i + 1] || !ft_strcmp(cmd[0], "<<"))
 		return ;
 	get_text(&all, cmd[i + 1]); //check return ?
-	i--;
-	while (cmd[++i])
-		cmd[i] = NULL;
+	compress_cmd(cmd, i);
 	pipe(pipe_fd) < 0 ? error("Pipe", NULL) : NULL;
 	fork_that(cmd, e, pipe_fd, all);
 	ft_memdel((void *)&all);

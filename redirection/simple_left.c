@@ -6,7 +6,7 @@
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/23 22:48:20 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/04 14:23:38 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/05 00:35:22 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ extern pid_t	g_pid2;
 
 static void		fork_that(char **cmd, t_env *e, int *pipe_fd, char *all)
 {
-	int         save_fd0;
-    int         save_fd1;
+	int				 save_fd0;
+	int		 save_fd1;
 
 	((g_pid2 = fork()) < 0) ? error("Fork", NULL) : NULL;
 	if (!g_pid2)
@@ -46,6 +46,23 @@ static void		fork_that(char **cmd, t_env *e, int *pipe_fd, char *all)
 		close(save_fd1);
 		wait(NULL);
 	}
+}
+
+static void		compress_cmd(char **cmd, int i)
+{
+	int			j;
+
+	j = i + 1;
+	while (cmd[j] && !ft_strchr(cmd[j], '>') && !ft_strchr(cmd[j], '<')\
+			&& !ft_strchr(cmd[j], '|'))
+		j++;
+	j = cmd[j] ? j - 1 : 0;
+	i = j ? i - 1 : i;
+	while (j && cmd[i++ + j])
+		cmd[i] = cmd[i + j];
+	i--;
+	while (cmd[++i])
+		cmd[i] = NULL;
 }
 
 void			simple_left(char **cmd, t_env *e)

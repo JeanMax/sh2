@@ -6,7 +6,7 @@
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/24 20:08:46 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/04 15:07:56 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/04 23:19:09 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,18 +65,10 @@ void			simple_pipe(char **cmd, t_env *e)
 		ft_putendl_fd("Invalid null command.", 2);
 	if (!cmd[i + 1] || !ft_strcmp(cmd[0], "|"))
 		return ;
-//	new_cmd = cpy_env(&cmd[i + 1], NULL);
-	new_cmd = cpy_env(cmd, NULL);
-	compress_cmd(&new_cmd[i + 1], 0);
- //debug	
-	i++;
-	while (new_cmd[i])
-		ft_debugstr("cmd2", new_cmd[i++]);
-	i = 0;
-	while (cmd[i])
-		ft_debugstr("cmd1", cmd[i++]);
-	exit(0);
- //debug
+	new_cmd = cpy_env(&cmd[i + 1], NULL);
+	i--;
+	while (cmd[++i])
+		cmd[i] = NULL;
 	pipe(pipe_fd) < 0 ? error("Pipe", NULL) : NULL;
 	fork_that(cmd, new_cmd, pipe_fd, e);
 	ft_freetab(new_cmd);
