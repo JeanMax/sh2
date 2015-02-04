@@ -6,7 +6,7 @@
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/23 22:48:20 by mcanal            #+#    #+#             */
-/*   Updated: 2015/01/28 20:46:31 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/04 14:23:38 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,25 +19,31 @@
 
 extern pid_t	g_pid2;
 
-static void		fork_that(char **cmd, t_env *e, char *all)
+static void		fork_that(char **cmd, t_env *e, int *pipe_fd, char *all)
 {
-	int			pipe_fd[2];
+	int         save_fd0;
+    int         save_fd1;
 
-	pipe(pipe_fd) < 0 ? error("Pipe", NULL) : NULL;
-	if ((g_pid2 = fork()) < 0)
-		error("Fork", NULL);
-	else if (!g_pid2)
+	((g_pid2 = fork()) < 0) ? error("Fork", NULL) : NULL;
+	if (!g_pid2)
 	{
+		save_fd0 = dup(0);
 		close(pipe_fd[1]);
 		dup2(pipe_fd[0], 0);
 		close(pipe_fd[0]);
-		is_builtin(cmd, e) ? launch_builtin(cmd, e) : call_execve(cmd, e);
+		launch_cmd(cmd, e);
+		dup2(save_fd0, 0);
+		close(save_fd0);
+		exit(0);
 	}
 	else
 	{
+		save_fd1 = dup(1);
 		close(pipe_fd[0]);
 		ft_putstr_fd(all, pipe_fd[1]);
 		close(pipe_fd[1]);
+		dup2(save_fd1, 1);
+		close(save_fd1);
 		wait(NULL);
 	}
 }
@@ -46,6 +52,7 @@ void			simple_left(char **cmd, t_env *e)
 {
 	int			i;
 	int			file_fd;
+	int			pipe_fd[2];
 	char		*all;
 
 	//cmd = check_cmd(cmd); //TODO
@@ -60,11 +67,10 @@ void			simple_left(char **cmd, t_env *e)
 		return ;
 	if ((file_fd = open(cmd[i + 1], O_RDONLY)) < 0)
 		error("open", cmd[i + 1]); //to edit
-	i--;
-	while (cmd[++i])
-		cmd[i] = NULL;
 	get_all(file_fd, &all); //check return ?
+	compress_cmd(cmd, i);
 	close(file_fd);
-	fork_that(cmd, e, all);
+	pipe(pipe_fd) < 0 ? error("Pipe", NULL) : NULL;
+	fork_that(cmd, e, pipe_fd, all);
 	ft_memdel((void *)&all);
 }

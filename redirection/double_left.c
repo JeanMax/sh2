@@ -6,7 +6,7 @@
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/23 22:48:29 by mcanal            #+#    #+#             */
-/*   Updated: 2015/01/28 23:26:51 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/03 21:07:28 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,42 +16,48 @@
 
 #include "header.h"
 
-extern pid_t	g_pid2;
+extern pid_t		g_pid2;
 
-static void		fork_that(char **cmd, t_env *e, char *all)
+static void			fork_that(char **cmd, t_env *e, int *pipe_fd, char *all)
 {
-	int		pipe_fd[2];
+	int				save_fd0;
+	int				save_fd1;
 
-	pipe(pipe_fd) < 0 ? error("Pipe", NULL) : NULL;
-	if ((g_pid2 = fork()) < 0)
-		error("Fork", NULL);
-	else if (!g_pid2)
+	((g_pid2 = fork()) < 0) ? error("Fork", NULL) : NULL;
+	if (!g_pid2)
 	{
+		save_fd0 = dup(0);
 		close(pipe_fd[1]);
 		dup2(pipe_fd[0], 0);
 		close(pipe_fd[0]);
-		is_builtin(cmd, e) ? launch_builtin(cmd, e) : call_execve(cmd, e);
+		launch_cmd(cmd, e);
+		dup2(save_fd0, 0);
+        close(save_fd0);
+        exit(0);
 	}
 	else
 	{
+		save_fd1 = dup(1);
 		close(pipe_fd[0]);
 		ft_putstr_fd(all, pipe_fd[1]);
 		close(pipe_fd[1]);
+		dup2(save_fd1, 1);
+        close(save_fd1);
 		wait(NULL);
 	}
 }
 
-static int	get_that_line(int const fd, char **a)
+static int			get_that_line(int const fd, char **a)
 {
-	int		i;
-	int		stop;
-	int		n;
-	char	buf[BUFF_SIZE];
+	int				i;
+	int				stop;
+	int				n;
+	char			buf[BUFF_SIZE];
 
 	if (!a || fd < 0)
 		return (0);
-	*a = ft_strnew(1);
 	n = 0;
+	*a = ft_strnew(1);
 	while ((i = read(fd, buf, BUFF_SIZE)) > 0)
 	{
 		buf[i] = '\0';
@@ -69,13 +75,14 @@ static int	get_that_line(int const fd, char **a)
 	return (1);
 }
 
-static void	get_text(char **a, char *here)
+static void			get_text(char **a, char *here)
 {
-	char	*tmp;
-	char	*to_free;
-	int		len;
+	char			*tmp;
+	char			*to_free;
+	size_t			len;
 
-	to_free = ft_strjoin(here, "\n"); //tofree
+	to_free = ft_strjoin(here, "\n");
+	*a = ft_strnew(1);
 	while (get_that_line(0, &tmp))
 	{
 		if (!ft_strcmp(tmp, to_free))
@@ -84,16 +91,17 @@ static void	get_text(char **a, char *here)
 			break ;
 		}
 		len = ft_strlen(*a);
-		*a = ft_realloc((void *)*a, len, len + ft_strlen(tmp));
+		*a = (char *)ft_realloc((void *)*a, len, len + ft_strlen(tmp));
 		ft_strcat(*a, tmp);
 	}
 	ft_memdel((void *)&to_free);
 }
 
-void		doble_left(char **cmd, t_env *e)
+void				doble_left(char **cmd, t_env *e)
 {
-	int			i;
-	char		*all;
+	int				i;
+	char			*all;
+	int				pipe_fd[2];
 
 	//cmd = check_cmd(cmd); //TODO
 	i = 0;
@@ -109,6 +117,7 @@ void		doble_left(char **cmd, t_env *e)
 	i--;
 	while (cmd[++i])
 		cmd[i] = NULL;
-	fork_that(cmd, e, all + 2);
+	pipe(pipe_fd) < 0 ? error("Pipe", NULL) : NULL;
+	fork_that(cmd, e, pipe_fd, all);
 	ft_memdel((void *)&all);
 }

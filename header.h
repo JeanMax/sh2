@@ -6,7 +6,7 @@
 /*   By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/29 13:23:15 by mcanal            #+#    #+#             */
-/*   Updated: 2015/01/28 17:27:50 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/04 14:24:32 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ struct	s_env
 /*
 ** prototypes
 */
+void	compress_cmd(char **cmd, int i);
 int		is_builtin(char **cmd, t_env *e);
 char	**spaces_error(char **cmd, char *c);
 void	simple_right(char **cmd, t_env *e);

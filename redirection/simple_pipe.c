@@ -6,7 +6,7 @@
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/24 20:08:46 by mcanal            #+#    #+#             */
-/*   Updated: 2015/01/30 22:52:51 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/04 15:07:56 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,26 +19,32 @@
 
 extern pid_t	g_pid2;
 
-static void		fork_that(char **cmd1, char **cmd2, t_env *e)
+static void		fork_that(char **cmd1, char **cmd2, int *pipe_fd, t_env *e)
 {
-	int			pipe_fd[2];
+	int			save_fd0;
+	int			save_fd1;
 
-	pipe(pipe_fd) < 0 ? error("Pipe", NULL) : NULL;
-	if ((g_pid2 = fork()) < 0)
-		error("Fork", NULL);
-	else if (!g_pid2)
+	(g_pid2 = fork()) < 0 ? error("Fork", NULL) : NULL;
+	if (!g_pid2)
 	{
+		save_fd0 = dup(0);
 		close(pipe_fd[1]);
 		dup2(pipe_fd[0], 0);
 		close(pipe_fd[0]);
-		is_builtin(cmd2, e) ? launch_builtin(cmd2, e) : call_execve(cmd2, e);
+		launch_cmd(cmd2, e);
+		dup2(save_fd0, 0);
+		close(save_fd0);
+		exit(0);
 	}
 	else
 	{
+		save_fd1 = dup(1);
 		close(pipe_fd[0]);
 		dup2(pipe_fd[1], 1);
 		close(pipe_fd[1]);
-		is_builtin(cmd1, e) ? launch_builtin(cmd1, e) : call_execve(cmd1, e);
+		launch_cmd(cmd1, e);
+		dup2(save_fd1, 1);
+		close(save_fd1);
 		wait(NULL);
 	}
 }
@@ -47,6 +53,7 @@ void			simple_pipe(char **cmd, t_env *e)
 {
 	int		i;
 	char	**new_cmd;
+	int		pipe_fd[2];
 
 	//cmd = check_cmd(cmd); //TODO
 	i = 0;
@@ -58,10 +65,19 @@ void			simple_pipe(char **cmd, t_env *e)
 		ft_putendl_fd("Invalid null command.", 2);
 	if (!cmd[i + 1] || !ft_strcmp(cmd[0], "|"))
 		return ;
-	new_cmd = cpy_env(&cmd[i + 1], NULL);
-	i--;
-	while (cmd[++i])
-		cmd[i] = NULL;
-	fork_that(cmd, new_cmd, e);
+//	new_cmd = cpy_env(&cmd[i + 1], NULL);
+	new_cmd = cpy_env(cmd, NULL);
+	compress_cmd(&new_cmd[i + 1], 0);
+ //debug	
+	i++;
+	while (new_cmd[i])
+		ft_debugstr("cmd2", new_cmd[i++]);
+	i = 0;
+	while (cmd[i])
+		ft_debugstr("cmd1", cmd[i++]);
+	exit(0);
+ //debug
+	pipe(pipe_fd) < 0 ? error("Pipe", NULL) : NULL;
+	fork_that(cmd, new_cmd, pipe_fd, e);
 	ft_freetab(new_cmd);
 }
