@@ -6,7 +6,7 @@
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/24 20:08:46 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/05 17:51:22 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/05 19:17:06 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,7 @@ void			simple_pipe(char **cmd, t_env *e)
 	i = 0;
 	while (cmd[i] && ft_strcmp(cmd[i], "|"))
 		i++;
-	if (!cmd[i + 1])
-		ft_putendl_fd("Missing name for redirect.", 2);
-	else if (!ft_strcmp(cmd[0], "|"))
+	if (!ft_strcmp(cmd[0], "|") || !cmd[i + 1])
 		ft_putendl_fd("Invalid null command.", 2);
 	if (!cmd[i + 1] || !ft_strcmp(cmd[0], "|"))
 		return ;

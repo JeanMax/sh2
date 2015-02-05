@@ -6,7 +6,7 @@
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/23 21:32:33 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/03 19:06:23 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/05 19:09:50 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void		sig_handl(int sig)
 	else if (sig == SIGINT)
 	{
 		ft_putstr("\b \b\b \b\n");
-		if (g_pid1 == g_pid2 || !g_pid1)
+		if (g_pid1 == g_pid2 || (!g_pid1 && !g_pid2))
 			prompt(g_env);
 		g_pid1 = g_pid2;
 	}
