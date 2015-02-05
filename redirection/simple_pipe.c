@@ -6,7 +6,7 @@
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/24 20:08:46 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/04 23:19:09 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/05 17:51:22 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ static void		fork_that(char **cmd1, char **cmd2, int *pipe_fd, t_env *e)
 	int			save_fd0;
 	int			save_fd1;
 
-	(g_pid2 = fork()) < 0 ? error("Fork", NULL) : NULL;
 	if (!g_pid2)
 	{
 		save_fd0 = dup(0);
@@ -70,6 +69,7 @@ void			simple_pipe(char **cmd, t_env *e)
 	while (cmd[++i])
 		cmd[i] = NULL;
 	pipe(pipe_fd) < 0 ? error("Pipe", NULL) : NULL;
+	(g_pid2 = fork()) < 0 ? error("Fork", NULL) : NULL;
 	fork_that(cmd, new_cmd, pipe_fd, e);
 	ft_freetab(new_cmd);
 }

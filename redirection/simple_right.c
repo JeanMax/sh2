@@ -6,7 +6,7 @@
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/23 22:48:09 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/05 00:44:55 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/05 17:55:07 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static int	is_ambiguous(char **cmd)
 
 	i = 0;
 	while (cmd[i] && ft_strcmp(cmd[i], ">"))
-        i++;
+		i++;
 	i++;
 	while (cmd[i] && !ft_strchr(cmd[i], '>') && !ft_strchr(cmd[i], '<')\
 			&& !ft_strchr(cmd[i], '|'))
@@ -95,11 +95,10 @@ void		simple_right(char **cmd, t_env *e)
 	i = 0;
 	while (cmd[i] && ft_strcmp(cmd[i], ">"))
 		i++;
-	!cmd[i + 1] ? ft_putendl_fd("Missing name for redirect.", 2) : 0;
-	!ft_strcmp(cmd[0], ">") && cmd[i + 1] ?\
-		ft_putendl_fd("Invalid null command.", 2) : 0;
+	!cmd[i + 1] ? failn("Missing name for redirect.") : 0;
+	!ft_strcmp(cmd[0], ">") && cmd[i + 1] ? failn("Invalid null command.") : 0;
 	is_ambiguous(cmd) && ft_strcmp(cmd[0], ">") && cmd[i + 1] ?\
-		ft_putendl_fd("Ambiguous output redirect.", 2) : 0;
+		failn("Ambiguous output redirect.") : 0;
 	if (!cmd[i + 1] || !ft_strcmp(cmd[0], ">") || is_ambiguous(cmd))
 		return ;
 	if ((file_fd = open(cmd[i + 1], O_WRONLY | O_CREAT | O_TRUNC, 0664)) < 0)

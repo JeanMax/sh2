@@ -6,7 +6,7 @@
 /*   By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/12 03:39:12 by mcanal            #+#    #+#             */
-/*   Updated: 2015/01/28 16:52:37 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/05 17:41:21 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,26 +23,26 @@
 void		error(char *type, char *msg)
 {
 	if (type[0] == 'c')
-		ft_putstr_fd("sh2: command not found: ", 2);
+		fail("sh2: command not found: ");
 	else if (type[0] == 'e')
-		ft_putstr_fd("sh2: no such file or directory: ", 2);
+		fail("sh2: no such file or directory: ");
 	else if (type[0] == 'o')
-		ft_putstr_fd("sh2: can't make file: ", 2);
+		fail("sh2: can't make file: ");
 	if (type[0] == 'c' || type[0] == 'e' || type[0] == 'o')
-		ft_putendl_fd(msg, 2);
+		failn(msg);
 	else if (type[0] == 'b')
-		ft_putendl_fd("Bus error. Try Again...", 2);
+		failn("Bus error. Try Again...");
 	else if (type[0] == 'P')
-		ft_putendl_fd("Pipe failed. Try Again...", 2);
+		failn("Pipe failed. Try Again...");
 	else if (type[0] == 'F')
-		ft_putendl_fd("Fork failed. Try Again...", 2);
+		failn("Fork failed. Try Again...");
 	else if (type[0] == 's')
-		ft_putendl_fd("Segmentation fault. Try Again...", 2);
+		failn("Segmentation fault. Try Again...");
 	else if (type[0] == 'f')
-		ft_putendl_fd("Floating-point exception. Try Again...", 2);
+		failn("Floating-point exception. Try Again...");
 	else if (type[0] == 'a')
-		ft_putendl_fd("Too many arguments.", 2);
+		failn("Too many arguments.");
 	else if (type[0] == 'p')
-		ft_putendl_fd("$PATH missing from env.", 2);
+		failn("$PATH missing from env.");
 	exit((type[0] == 'c' || type[0] == 'e') ? 1 : -1);
 }
