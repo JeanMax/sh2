@@ -6,7 +6,7 @@
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/23 22:48:44 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/05 17:52:06 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/06 22:17:23 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,30 +85,30 @@ static int	is_ambiguous(char **cmd)
 	return (0);
 }
 
-void		doble_right(char **c, t_env *e)
+void		doble_right(char **cmd, t_env *e)
 {
 	int		file_fd;
 	int		base_fd;
 	int		i;
 
-	c = is_ambiguous(c) ? c : check_cmd(c);
+	cmd = is_ambiguous(cmd) ? cmd : check_cmd(cmd);
 	i = 0;
-	while (c[i] && ft_strcmp(c[i], ">>"))
+	while (cmd[i] && ft_strcmp(cmd[i], ">>"))
 		i++;
-	!c[i + 1] ? failn("Missing name for redirect.") : 0;
-	!ft_strcmp(c[0], ">>") && c[i + 1] ? failn("Invalid null command.") : 0;
-	is_ambiguous(c) && ft_strcmp(c[0], ">>") && c[i + 1] ?\
+	!cmd[i + 1] ? failn("Missing name for redirect.") : 0;
+	!ft_strcmp(cmd[0], ">>") && cmd[i + 1] ? failn("Invalid null command.") : 0;
+	is_ambiguous(cmd) && ft_strcmp(cmd[0], ">>") && cmd[i + 1] ?\
 		failn("Ambiguous output redirect.") : 0;
-	if (!c[i + 1] || !ft_strcmp(c[0], ">>") || is_ambiguous(c))
+	if (!cmd[i + 1] || !ft_strcmp(cmd[0], ">>") || is_ambiguous(cmd))
 		return ;
-	if ((file_fd = open(c[i + 1], O_WRONLY | O_CREAT | O_APPEND, 0664)) < 0)
-		error("open", c[i + 1]);
+	if ((file_fd = open(cmd[i + 1], O_WRONLY | O_CREAT | O_APPEND, 0664)) < 0)
+		error("open", cmd[i + 1]);
 	i--;
-	while (c[++i])
-		c[i] = NULL;
+	while (cmd[++i])
+		cmd[i] = NULL;
 	base_fd = dup(1);
 	dup2(file_fd, 1);
-	launch_cmd(c, e);
+	launch_cmd(cmd, e);
 	dup2(base_fd, 1);
 	close(file_fd);
 	close(base_fd);

@@ -6,7 +6,7 @@
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/24 20:59:31 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/05 17:48:38 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/06 22:16:15 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,27 +16,23 @@
 
 #include "header.h"
 
-void	redirect(char **cmd, t_env *e, int i)
+void	redirect(char **c, t_env *e, int i)
 {
-	while (cmd[i])
+	while (c[i])
 	{
-		ft_strstr(cmd[i], ">>") ? doble_right(cmd, e) : NULL;
-		ft_strstr(cmd[i], "<<") ? doble_right(cmd, e) : NULL;
-		if (ft_strstr(cmd[i], ">>") || ft_strstr(cmd[i], "<<"))
-			return ;
-		else if (ft_strchr(cmd[i], '>'))
+		if (ft_strchr(c[i], '>'))
 		{
-			simple_right(cmd, e);
+			ft_strstr(c[i], ">>") ? doble_right(c, e) : simple_right(c, e);
 			return ;
 		}
-		else if (ft_strchr(cmd[i], '<'))
+		else if (ft_strchr(c[i], '<'))
 		{
-			simple_left(cmd, e);
+			ft_strstr(c[i], "<<") ? doble_left(c, e) : simple_left(c, e);
 			return ;
 		}
-		else if (ft_strchr(cmd[i++], '|'))
+		else if (ft_strchr(c[i++], '|'))
 		{
-			simple_pipe(cmd, e);
+			simple_pipe(c, e);
 			return ;
 		}
 	}

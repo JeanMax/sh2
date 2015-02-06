@@ -6,7 +6,7 @@
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/23 21:32:33 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/06 15:25:14 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/06 21:39:26 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,15 @@ void			launch_cmd(char **cmd, t_env *e)
 {
 	int	i;
 
-	i = 0;
 	if (!cmd[0])
 		return ;
+	i = -1;
+	while (cmd[++i])
+		if (cmd[i][0] == '$')
+			cmd[i] = get_env(cmd[i] + 1, e);
+		else if (!ft_strcmp(cmd[i], "~"))
+			cmd[i] = get_env("HOME", e);
+	i = 0;
 	while (cmd[i])
 		if (ft_strchr(cmd[i], '>') || ft_strchr(cmd[i], '<')\
 			|| ft_strchr(cmd[i++], '|'))

@@ -6,7 +6,7 @@
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/24 20:08:46 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/05 19:17:06 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/06 22:16:41 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,40 +19,50 @@
 
 extern pid_t	g_pid2;
 
-static void		fork_that(char **cmd1, char **cmd2, int *pipe_fd, t_env *e)
+static void		child(int *pipe_fd, char **cmd2, t_env *e)
 {
 	int			save_fd0;
+
+	save_fd0 = dup(0);
+	close(pipe_fd[1]);
+	dup2(pipe_fd[0], 0);
+	close(pipe_fd[0]);
+	launch_cmd(cmd2, e);
+	dup2(save_fd0, 0);
+	close(save_fd0);
+	exit(0);
+}
+
+static void		father(int *pipe_fd, char **cmd1, t_env *e)
+{
 	int			save_fd1;
 
+	save_fd1 = dup(1);
+	close(pipe_fd[0]);
+	dup2(pipe_fd[1], 1);
+	close(pipe_fd[1]);
+	launch_cmd(cmd1, e);
+	dup2(save_fd1, 1);
+	close(save_fd1);
+	wait(NULL);
+}
+
+static void		fork_that(char **cmd1, char **cmd2, t_env *e)
+{
+	int			pipe_fd[2];
+
+	pipe(pipe_fd) < 0 ? error("Pipe", NULL) : NULL;
+	(g_pid2 = fork()) < 0 ? error("Fork", NULL) : NULL;
 	if (!g_pid2)
-	{
-		save_fd0 = dup(0);
-		close(pipe_fd[1]);
-		dup2(pipe_fd[0], 0);
-		close(pipe_fd[0]);
-		launch_cmd(cmd2, e);
-		dup2(save_fd0, 0);
-		close(save_fd0);
-		exit(0);
-	}
+		child(pipe_fd, cmd2, e);
 	else
-	{
-		save_fd1 = dup(1);
-		close(pipe_fd[0]);
-		dup2(pipe_fd[1], 1);
-		close(pipe_fd[1]);
-		launch_cmd(cmd1, e);
-		dup2(save_fd1, 1);
-		close(save_fd1);
-		wait(NULL);
-	}
+		father(pipe_fd, cmd1, e);
 }
 
 void			simple_pipe(char **cmd, t_env *e)
 {
 	int		i;
 	char	**new_cmd;
-	int		pipe_fd[2];
 
 	//cmd = check_cmd(cmd); //TODO
 	i = 0;
@@ -66,8 +76,6 @@ void			simple_pipe(char **cmd, t_env *e)
 	i--;
 	while (cmd[++i])
 		cmd[i] = NULL;
-	pipe(pipe_fd) < 0 ? error("Pipe", NULL) : NULL;
-	(g_pid2 = fork()) < 0 ? error("Fork", NULL) : NULL;
-	fork_that(cmd, new_cmd, pipe_fd, e);
+	fork_that(cmd, new_cmd, e);
 	ft_freetab(new_cmd);
 }
