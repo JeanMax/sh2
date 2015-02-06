@@ -6,7 +6,7 @@
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/23 22:47:57 by mcanal            #+#    #+#             */
-/*   Updated: 2015/01/24 23:39:08 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/06 16:42:39 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	semicolon(char *line, t_env *e)
 	i = 0;
 	while (sc_tab[i])
 	{
-		cmd = ft_strsplit(sc_tab[i], ' ');
+		cmd = split_it(sc_tab[i]);
 		launch_cmd(cmd, e);
 		ft_freetab(cmd);
 		i++;

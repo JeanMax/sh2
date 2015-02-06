@@ -6,7 +6,7 @@
 /*   By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/29 13:23:15 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/05 17:58:43 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/06 18:18:15 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ struct	s_env
 /*
 ** prototypes
 */
+char	**split_it(char const *s);
 int		is_builtin(char **cmd, t_env *e);
 char	**spaces_error(char **cmd, char *c);
 void	simple_right(char **cmd, t_env *e);
@@ -63,6 +64,7 @@ void	call_execve(char **cmd, t_env *e);
 void	fork_it(char **cmd, t_env *e);
 void	get_path(t_env *e);
 void	get_builtin(t_env *e);
+char	**set_av(char *s1, char *s2, t_env *e, int go);
 char	*get_env(char *var, t_env *e);
 char	**cpy_env(char **ae, char *val);
 void	launch_cmd(char **cmd, t_env *e);
