@@ -6,7 +6,7 @@
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/23 21:32:33 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/06 21:39:26 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/07 21:26:07 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,8 @@ void			init(int ac, char **ae, t_env *e)
 	signal(SIGBUS, sig_handl);
 	signal(SIGTSTP, SIG_IGN);
 	signal(SIGQUIT, SIG_IGN);
-	e->env = ae;
+//	e->env = ae;
+	e->env = cpy_env(ae, NULL);
 	get_path(e);
 	get_builtin(e);
 	g_env = e;

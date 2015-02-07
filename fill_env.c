@@ -6,7 +6,7 @@
 /*   By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/12 07:46:30 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/07 19:53:12 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/07 21:04:01 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,28 +21,23 @@
 char	**set_av(char *s1, char *s2, t_env *e, int go)
 {
 	char		**av;
+	char		tmp;
 	struct stat	s;
 
 	av = malloc(sizeof(char *) * 4);
 	av[0] = ft_strdup("setenv");
 	av[1] = ft_strdup(s1);
-	if (!ft_strcmp(s2, "PWD") || !ft_strcmp(s2, "OLDPWD") ||
-		!ft_strcmp(s2, "HOME"))
-	{
-		if (!(s2 = get_env(s2, e)))
-			return (NULL);
-	}
-	av[2] = ft_strdup(s2);
+	av[2] = (!ft_strcmp(s2, "PWD") || !ft_strcmp(s2, "OLDPWD") ||\
+			 !ft_strcmp(s2, "HOME")) ? get_env(s2, e) : ft_strdup(s2);
 	av[3] = ft_strnew(1);
 	av[3] = NULL;
-	if (go)
-		if (chdir(s2) < 0)
-		{
-			ft_putstr(stat(s2, &s) ? \
-				"cd: no such file or directory: " : "cd: not a directory: ");
-			ft_putendl(ft_strrindex(s2, '/') != (int)ft_strlen(s2) - 1 ?
-						s2 + ft_strrindex(s2, '/') + 1 : s2);
-		}
+	tmp = go ? (char)chdir(av[2]) : '\0';
+	if (tmp && go)
+		ft_putstr(stat(s2, &s) ?\
+				  "cd: no such file or directory: " : "cd: not a directory: ");
+	if (tmp && go)
+		ft_putendl(ft_strrindex(s2, '/') != (int)ft_strlen(s2) - 1 ?\
+					s2 + ft_strrindex(s2, '/') + 1 : s2);
 	return (av);
 }
 
@@ -73,7 +68,6 @@ char	*get_env(char *var, t_env *e)
 	char	**ae;
 	int		i;
 	int		len;
-	char	*ret;
 
 	ae = e->env;
 	i = 0;
@@ -84,8 +78,7 @@ char	*get_env(char *var, t_env *e)
 		i++;
 	if (!ae[i])
 		return (ft_strnew(1));
-	ret = ft_strdup(ae[i] + len + 1);
-	return (ret);
+	return (ft_strdup(ae[i] + len + 1));
 }
 
 void	get_path(t_env *e)

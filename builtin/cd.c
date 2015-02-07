@@ -6,7 +6,7 @@
 /*   By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/12 07:40:00 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/07 19:54:22 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/07 21:08:52 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,27 +22,18 @@ static void	go_home(t_env *e)
 	char	*home;
 	char	*pwd;
 
-	if (!ft_strlen(home = get_env("HOME", e)))
-	{
-		ft_putendl_fd("cd: No home directory.", 2);
+	!ft_strlen(home = get_env("HOME", e)) ? failn("cd: No home directory.") : 0;
+	if (!ft_strlen(home))
 		return ;
-	}
 	pwd = get_env("PWD", e);
 	if (!(av = set_av("OLDPWD", pwd, e, 0)))
 		return ;
 	launch_builtin(av, e);
 	ft_freetab(av);
-	if (!ft_strcmp(pwd, home))
-	{
-		ft_memdel((void *)&home);
-		ft_memdel((void *)&pwd);
-		return ;
-	}
-	if (!(av = set_av("PWD", home, e, 1)))
-		return ;
+	av = ft_strcmp(pwd, home) ? set_av("PWD", home, e, 1) : NULL;
+	ft_strcmp(pwd, home) ? ft_freetab(av) : 0;
 	ft_memdel((void *)&home);
 	ft_memdel((void *)&pwd);
-	ft_freetab(av);
 }
 
 static void	go_previous(t_env *e)
@@ -98,8 +89,7 @@ static void	go_to(char *path, t_env *e)
 	if (!(av = set_av("PWD", path, e, 1)))
 		return ;
 	ft_freetab(av);
-	if (free_it)
-		ft_memdel((void *)&path);
+	free_it ? ft_memdel((void *)&path) : NULL;
 }
 
 void		ft_cd(char **av, t_env *e)

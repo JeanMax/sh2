@@ -6,7 +6,7 @@
 /*   By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/12 07:40:39 by mcanal            #+#    #+#             */
-/*   Updated: 2015/01/28 17:38:53 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/07 21:27:39 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,22 @@
 
 #include "header.h"
 
-static int		var_exist(char **ae, char *var, char *val)
+static void		var_exist(t_env *e, char *var, char *val)
 {
 	int	j;
 
 	j = 0;
-	while (ae[j] && ft_strncmp(ae[j], var,
-								(int)ft_strlen(var) > ft_strindex(ae[j], '=') ?
-								(int)ft_strlen(var) : ft_strindex(ae[j], '=')))
+	while ((e->env)[j] && ft_strncmp((e->env)[j], var,
+						(int)ft_strlen(var) > ft_strindex((e->env)[j], '=') ?
+						(int)ft_strlen(var) : ft_strindex((e->env)[j], '=')))
 		j++;
-	if (ae[j])
+	if ((e->env)[j])
 	{
-		ae[j] = ft_strdup(val);
-		return (1);
+		ft_memdel((void *)&(e->env)[j]);
+		(e->env)[j] = ft_strdup(val);
 	}
-	return (0);
+	else
+		e->env = cpy_env(e->env, val);
 }
 
 void			ft_setenv(char **av, t_env *e)
@@ -54,8 +55,7 @@ void			ft_setenv(char **av, t_env *e)
 	}
 	tmp = ft_strjoin(av[1], "=");
 	to_add = ft_strjoin(tmp, av[2]);
-	if (!var_exist(e->env, av[1], to_add))
-		e->env = cpy_env(e->env, to_add);
+	var_exist(e, av[1], to_add);
 	ft_memdel((void *)&tmp);
 	ft_memdel((void *)&to_add);
 }
