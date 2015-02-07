@@ -6,7 +6,7 @@
 /*   By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/12 07:41:27 by mcanal            #+#    #+#             */
-/*   Updated: 2015/01/30 22:49:56 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/07 21:35:17 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	del_env(char *del, t_env *e)
 		j++;
 	while ((e->env)[j + 1])
 	{
+		ft_memdel((void *)&(e->env)[j]);
 		(e->env)[j] = ft_strdup((e->env)[j + 1]);
 		j++;
 	}
