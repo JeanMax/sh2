@@ -10,7 +10,7 @@ fsh inside! (FlexShell)
 * memory leaks in cd, setenv, unsetenv, space_error... probably some more
 * > and >> : weird behaviour with echo -> WHAT??!
 * handle "space errors" : "ls>1>2" -> "ls > 1 > 2"
-* cd error around /Volumes/Data - do not prompt the path if arg is "-"
+* handle "~/..."
 * add to cd : cd [-p] [-l] [-n|-v]
 
 "If name is not a subdirectory of the current directory (and does not begin with '/', './' or '../'), each component of the variable cdpath is checked to see if it has a subdirectory name. Finally, if all else fails but name is a shell variable whose value begins with '/', then this is tried to see if it is a directory.

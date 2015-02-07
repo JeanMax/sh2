@@ -6,7 +6,7 @@
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/28 16:22:42 by mcanal            #+#    #+#             */
-/*   Updated: 2015/01/28 19:14:41 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/07 19:47:59 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	call_execve(char **cmd, t_env *e)
 	char	*join;
 	char	*tmp;
 
+	get_path(e);
 	if ((execve(cmd[0], cmd, e->env)) < 0)
 	{
 		(cmd[0][0] == '.' && cmd[0][1] == '/') ? error("exe", cmd[0]) : 0;

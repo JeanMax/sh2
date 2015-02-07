@@ -6,7 +6,7 @@
 /*   By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/12 07:40:00 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/06 19:58:12 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/07 19:54:22 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,11 @@ static void	go_home(t_env *e)
 	char	*home;
 	char	*pwd;
 
-	home = get_env("HOME", e);
+	if (!ft_strlen(home = get_env("HOME", e)))
+	{
+		ft_putendl_fd("cd: No home directory.", 2);
+		return ;
+	}
 	pwd = get_env("PWD", e);
 	if (!(av = set_av("OLDPWD", pwd, e, 0)))
 		return ;
@@ -41,7 +45,7 @@ static void	go_home(t_env *e)
 	ft_freetab(av);
 }
 
-static void go_previous(t_env *e)
+static void	go_previous(t_env *e)
 {
 	char	**av1;
 	char	**av2;
@@ -117,7 +121,7 @@ void		ft_cd(char **av, t_env *e)
 	pwd = ft_strdup(getcwd(buf, PATH_SIZE));
 	home = get_env("HOME", e);
 	if (!(av = set_av("PWD", (ft_strncmp(pwd, "/Volumes/Data", 13) ||\
-	ft_strlen(pwd) < ft_strlen(home)) ? pwd : pwd + 13, e, 1)))
+		ft_strlen(pwd) < ft_strlen(home)) ? pwd : pwd + 13, e, 1)))
 		return ;
 	launch_builtin(av, e);
 	ft_memdel((void *)&pwd);

@@ -6,7 +6,7 @@
 /*   By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/12 07:46:30 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/06 20:53:55 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/07 19:53:12 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,19 +92,24 @@ void	get_path(t_env *e)
 {
 	char	*tmp;
 	int		i;
+	char	**av;
 
-	i = 0;
-	while ((e->env)[i])
-	{
-		if ((e->env)[i][0] == 'P' && (e->env)[i][1] == 'A' &&\
-			(e->env)[i][2] == 'T' && (e->env)[i][3] == 'H' &&\
-			(e->env)[i][4] == '=')
+	i = -1;
+	while ((e->env)[++i])
+		if ((e->env)[i][0] == 'P' && (e->env)[i][1] == 'A' && (e->env)[i][2] ==\
+			'T' && (e->env)[i][3] == 'H' && (e->env)[i][4] == '=')
 			break ;
-		i++;
-	}
 	if (!(e->env)[i])
-		error("path", NULL);
+	{
+		av = set_av("PATH", "/bin", e, 0);
+		launch_builtin(av, e);
+		ft_freetab(av);
+		av = set_av("USER", "marvin", e, 0);
+		launch_builtin(av, e);
+		ft_freetab(av);
+	}
 	tmp = ft_strdup((e->env)[i]);
+	(e->path)[0] ? ft_freetab(e->path) : NULL;
 	e->path = ft_strsplit(tmp + 5, ':');
 	ft_memdel((void *)&tmp);
 }
