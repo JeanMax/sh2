@@ -6,7 +6,7 @@
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/25 18:44:22 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/10 22:00:56 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/10 23:33:02 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,27 +73,27 @@
 	i = 0;
 	while (cmd[i])
 	ft_debugstr("cmd", cmd[i++]);
-//	exit(0);
-//debug
+	//	exit(0);
+	//debug
 
-i = 0;
-while (cmd[i] && ft_strcmp(cmd[i], c))
-i++;
-if (cmd[i])
-return (cmd);
-i = -1;
-j = 0;
-while (cmd[++i])
-{
-if (ft_strindex(cmd[i], c[0]) != 0 && ft_strindex(cmd[i], c[0]) != -1\
-&& ft_strrindex(cmd[i], c[0]) != (int)ft_strlen(cmd[i]) - 1)
-j += 2;
-else if (ft_strchr(cmd[i], c[0]))
-j += 1;
-}
-new_cmd = malloc(sizeof(char *) * (j + i + 1));
-new_cmd[j + i] = NULL;
-spaces_error_aux_a(cmd, new_cmd, c);
+	i = 0;
+	while (cmd[i] && ft_strcmp(cmd[i], c))
+	i++;
+	if (cmd[i])
+	return (cmd);
+	i = -1;
+	j = 0;
+	while (cmd[++i])
+	{
+	if (ft_strindex(cmd[i], c[0]) != 0 && ft_strindex(cmd[i], c[0]) != -1\
+	&& ft_strrindex(cmd[i], c[0]) != (int)ft_strlen(cmd[i]) - 1)
+	j += 2;
+	else if (ft_strchr(cmd[i], c[0]))
+	j += 1;
+	}
+	new_cmd = malloc(sizeof(char *) * (j + i + 1));
+	new_cmd[j + i] = NULL;
+	spaces_error_aux_a(cmd, new_cmd, c);
 
 //debug
 i = 0;
@@ -105,15 +105,14 @@ return (new_cmd);
 }
 */
 
-static int					tab_len(char **c, int len)
+static int				tab_len(char **c, int len, char *s)
 {
-	char			*s;
-
 	while (*c)
 	{
 		s = *c;
 		if ((ft_strchr(s, '>') || ft_strchr(s, '<') || ft_strchr(s, '|')))
 		{
+			len += (!ft_strcmp(s, ">>") || !ft_strcmp(s, ">>")) ? 1 : 0;
 			len += (*s != '>' && *s != '<' && *s != '|') ? 1 : 0;
 			s += (*(s + 1) == *s && *s == '>') ||\
 				(*(s + 1) == *s && *s == '<') ? 1 : 0;
@@ -125,7 +124,7 @@ static int					tab_len(char **c, int len)
 					(*(s + 1) == *s && *s == '<') ? 2 : 1;
 			}
 			len -= (*(s - 1) == *(s - 2) &&\
-					(*(s - 1) == '>' || *(s - 1) == '<' || *(s - 1) == '|')) ? 1 : 0;
+			(*(s - 1) == '>' || *(s - 1) == '<' || *(s - 1) == '|')) ? 1 : 0;
 		}
 		else
 			len++;
@@ -133,10 +132,11 @@ static int					tab_len(char **c, int len)
 	}
 	return (len);
 }
+
 char		**spaces_error(char **cmd, char *c)
 {
 	c = c;
-	ft_debugnbr("len", tab_len(cmd));
+	ft_debugnbr("len", tab_len(cmd, 0, 0));
 	exit(0);
 	return (NULL);
 }

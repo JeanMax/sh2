@@ -6,7 +6,7 @@
 /*   By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/12 07:46:30 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/10 20:29:08 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/10 23:53:04 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,6 @@ void	get_path(t_env *e)
 		ft_freetab(av);
 	}
 	tmp = ft_strdup((e->env)[i]);
-	(e->path)[0] ? ft_freetab(e->path) : NULL;
 	e->path = ft_strsplit(tmp + 5, ':');
 	ft_memdel((void *)&tmp);
 }
