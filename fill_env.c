@@ -6,7 +6,7 @@
 /*   By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/12 07:46:30 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/07 21:46:14 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/10 20:29:08 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,12 @@ char	**set_av(char *s1, char *s2, t_env *e, int go)
 	av[0] = ft_strdup("setenv");
 	av[1] = ft_strdup(s1);
 	av[2] = (!ft_strcmp(s2, "PWD") || !ft_strcmp(s2, "OLDPWD") ||\
-			 !ft_strcmp(s2, "HOME")) ? get_env(s2, e) : ft_strdup(s2);
-//	av[3] = ft_strnew(1);
+		!ft_strcmp(s2, "HOME")) ? get_env(s2, e) : ft_strdup(s2);
 	av[3] = NULL;
 	tmp = go ? (char)chdir(av[2]) : '\0';
 	if (tmp && go)
 		ft_putstr(stat(s2, &s) ?\
-				  "cd: no such file or directory: " : "cd: not a directory: ");
+			"cd: no such file or directory: " : "cd: not a directory: ");
 	if (tmp && go)
 		ft_putendl(ft_strrindex(s2, '/') != (int)ft_strlen(s2) - 1 ?\
 					s2 + ft_strrindex(s2, '/') + 1 : s2);
@@ -58,7 +57,6 @@ char	**cpy_env(char **ae, char *val)
 	}
 	if (val)
 		new_env[i] = ft_strdup(val);
-//	new_env[i + (val ? 1 : 0)] = ft_strnew(1);
 	new_env[i + (val ? 1 : 0)] = NULL;
 	return (new_env);
 }
@@ -116,5 +114,4 @@ void	get_builtin(t_env *e)
 	(e->builtin)[3] = ft_strdup("env");
 	(e->builtin)[4] = ft_strdup("exit");
 	(e->builtin)[5] = ft_strnew(1);
-//	(e->builtin)[5] = NULL;
 }

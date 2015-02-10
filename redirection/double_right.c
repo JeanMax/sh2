@@ -6,7 +6,7 @@
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/23 22:48:44 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/06 22:17:23 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/10 20:30:18 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ static int	is_ambiguous(char **cmd)
 	i = 0;
 	while (cmd[i] && ft_strcmp(cmd[i], ">>"))
 		i++;
+	if (!cmd[i])
+		return (0);
 	i++;
 	while (cmd[i] && !ft_strchr(cmd[i], '>') && !ft_strchr(cmd[i], '<')\
 			&& !ft_strchr(cmd[i], '|'))
