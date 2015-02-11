@@ -6,7 +6,7 @@
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/23 22:48:20 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/05 17:49:23 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/11 23:03:50 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static void		compress_cmd(char **cmd, int i)
 	while (cmd[j] && !ft_strchr(cmd[j], '>') && !ft_strchr(cmd[j], '<')\
 			&& !ft_strchr(cmd[j], '|'))
 		j++;
-	j = cmd[j] ? j - 1 : 0;
+	j = cmd[j] ? (j - i) : 0;
 	i = j ? i - 1 : i;
 	while (j && cmd[i++ + j])
 		cmd[i] = cmd[i + j];
@@ -72,7 +72,7 @@ void			simple_left(char **cmd, t_env *e)
 	int			pipe_fd[2];
 	char		*all;
 
-	//cmd = check_cmd(cmd); //TODO
+	//cmd = check_cmd(cmd); //TODO : should only accept the last input (?)
 	i = 0;
 	while (cmd[i] && ft_strcmp(cmd[i], "<"))
 		i++;

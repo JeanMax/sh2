@@ -6,7 +6,7 @@
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/23 21:32:33 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/11 20:28:09 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/12 00:43:53 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void			launch_cmd(char **cmd, t_env *e)
 		if (ft_strchr(cmd[i], '>') || ft_strchr(cmd[i], '<')\
 			|| ft_strchr(cmd[i++], '|'))
 		{
-			redirect(cmd, e, 0);
+			redirect(cmd, e, -1);
 			return ;
 		}
 	is_builtin(cmd, e) ? launch_builtin(cmd, e) : fork_it(cmd, e);

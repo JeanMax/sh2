@@ -6,7 +6,7 @@
 #    By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/29 13:16:03 by mcanal            #+#    #+#              #
-#    Updated: 2015/02/11 22:16:53 by mcanal           ###   ########.fr        #
+#    Updated: 2015/02/11 23:24:52 by mcanal           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -15,10 +15,9 @@ C_SRC =	main.c				error.c				handle_env.c		\
 		prompt.c			exec.c				signal.c
 C_BUI =	builtin.c			exit.c				env.c				\
 		unsetenv.c			cd.c				setenv.c
-C_RED =	redirection.c		space_error.c							\
-		simple_right.c		simple_left.c							\
-		double_right.c		double_left.c							\
-		simple_pipe.c		
+C_RED =	redirection.c		space_error.c		simple_right.c		\
+		simple_left.c		double_right.c		double_left.c		\
+		simple_pipe.c		error_right.c		error_pipe.c
 O_DIR =	obj
 VPATH =	src:src/builtin:src/redirection
 SRCC = 	$(C_SRC:%.c=src/%.c)		$(C_BUI:%.c=src/builtin/%.c)	\

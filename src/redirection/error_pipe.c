@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   simple_pipe.c                                      :+:      :+:    :+:   */
+/*   error_pipe.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/01/24 20:08:46 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/11 22:25:33 by mcanal           ###   ########.fr       */
+/*   Created: 2015/02/11 23:21:24 by mcanal            #+#    #+#             */
+/*   Updated: 2015/02/12 00:46:54 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /*
-** pipe (|) handler
-** usage "cmd | cmd"
+** stderr pipe handler (|&)
+** this is also redirecting stdout
 */
 
 #include "header.h"
@@ -36,14 +36,19 @@ static void		child(int *pipe_fd, char **cmd2, t_env *e)
 static void		father(int *pipe_fd, char **cmd1, t_env *e)
 {
 	int			save_fd1;
+	int			save_fd2;
 
 	save_fd1 = dup(1);
+	save_fd2 = dup(2);
 	close(pipe_fd[0]);
 	dup2(pipe_fd[1], 1);
+	dup2(pipe_fd[1], 2);
 	close(pipe_fd[1]);
 	launch_cmd(cmd1, e);
-	dup2(save_fd1, 1);
+	dup2(save_fd1, 1);	
+	dup2(save_fd2, 2);
 	close(save_fd1);
+	close(save_fd2);
 	wait(NULL);
 }
 
@@ -59,18 +64,18 @@ static void		fork_that(char **cmd1, char **cmd2, t_env *e)
 		father(pipe_fd, cmd1, e);
 }
 
-void			simple_pipe(char **cmd, t_env *e)
+void			error_pipe(char **cmd, t_env *e)
 {
-	int		i;
-	char	**new_cmd;
+	int			i;
+	char		**new_cmd;
 
 	//cmd = check_cmd(cmd); //TODO
 	i = 0;
-	while (cmd[i] && ft_strcmp(cmd[i], "|"))
+	while (cmd[i] && ft_strcmp(cmd[i], "|&"))
 		i++;
-	if (!ft_strcmp(cmd[0], "|") || !cmd[i + 1])
+	if (!ft_strcmp(cmd[0], "|&") || !cmd[i + 1])
 		ft_putendl_fd("Invalid null command.", 2);
-	if (!cmd[i + 1] || !ft_strcmp(cmd[0], "|"))
+	if (!cmd[i + 1] || !ft_strcmp(cmd[0], "|&"))
 		return ;
 	new_cmd = ft_cpystab(&cmd[i + 1], NULL);
 	i--;

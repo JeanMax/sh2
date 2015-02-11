@@ -6,7 +6,7 @@
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/23 22:48:29 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/05 00:48:49 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/11 23:03:58 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ static void			compress_cmd(char **cmd, int i)
 	while (cmd[j] && !ft_strchr(cmd[j], '>') && !ft_strchr(cmd[j], '<')\
 			&& !ft_strchr(cmd[j], '|'))
 		j++;
-	j = cmd[j] ? j - 1 : 0;
+	j = cmd[j] ? j - i : 0;
 	i = j ? i - 1 : i;
 	while (j && cmd[i++ + j])
 		cmd[i] = cmd[i + j];
