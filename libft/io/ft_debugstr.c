@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 /*
-** Permet d'afficher une variable précèdée de son nom (debug!)
+** Allows to print a char * variable preceded by its name (debug!)
 */
 
 #include "libft.h"

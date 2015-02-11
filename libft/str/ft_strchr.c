@@ -11,8 +11,8 @@
 /* ************************************************************************** */
 
 /*
-**  The  strchr() function returns a pointer to the first occurrence of the
-**	character c in the string s.
+** The  strchr() function returns a pointer to the first occurrence of the
+** character c in the string s.
 */
 
 #include "libft.h"

@@ -11,7 +11,8 @@
 /* ************************************************************************** */
 
 /*
-** Affiche la chaine s sur la sortie standard (colorée).
+** Print the char * s on stdout, with colors!
+** clr = yellow, blue, red, green, pink, sky, white, (default = grey)
 */
 
 #include "libft.h"

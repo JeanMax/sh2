@@ -11,9 +11,9 @@
 /* ************************************************************************** */
 
 /*
-** Similaire à ft_strchr, mais retourne un int (index) indiquant la position du
-** premier caractere recherché et trouvé dans la chaine.
-** Retourne -1 en cas d'echec.
+** Similar to ft_strchr, but return an int (index) indicating the position of
+** first character searched and found in the string.
+** Returns -1 if fail.
 */
 
 #include "libft.h"

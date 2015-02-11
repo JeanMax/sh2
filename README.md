@@ -9,7 +9,6 @@ fsh inside! (FlexShell)
 * handle some more signals : ctrl-z (SIGTSTP, suspend)... stty -a for more infos
 * memory unsetenv?, space_error, various redirect... probably some more
 * > and >> : weird behaviour with echo -> WHAT??!
-* handle "space errors" : "ls>1>2" -> "ls > 1 > 2"
 * handle "~/..."
 * add to cd : cd [-p] [-l] [-n|-v]
 

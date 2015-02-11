@@ -11,10 +11,10 @@
 /* ************************************************************************** */
 
 /*
-**   The  strcat() function appends the src string to the dest string, over‐
-**   writing the terminating null byte ('\0') at the end of dest,  and  then
-**   adds  a  terminating  null  byte.  The strings may not overlap, and the
-**   dest string must have enough space for the  result.
+** The  strcat() function appends the src string to the dest string, over‐
+** writing the terminating null byte ('\0') at the end of dest,  and  then
+** adds  a  terminating  null  byte.  The strings may not overlap, and the
+** dest string must have enough space for the  result.
 */
 
 #include "libft.h"

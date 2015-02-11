@@ -11,10 +11,10 @@
 /* ************************************************************************** */
 
 /*
-** Applique la fonction f à chaque caractère de la chaine de caractères
-** passée en paramètre en précisant son index en premier argument.
-** Chaque caractère est passé par adresse à la fonction f afin de pouvoir
-** être modifié si nécéssaire.
+** Apply the function f to every character of the character string
+** given in parameter by specifying its index in first argument.
+** The adress of every character is given to
+** function f to be able to be modified if needed.
 */
 
 #include "libft.h"

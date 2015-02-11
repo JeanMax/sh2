@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/22 16:50:46 by mcanal            #+#    #+#             */
-/*   Updated: 2014/11/24 16:49:52 by mcanal           ###   ########.fr       */
+/*   Created: 2014/12/15 17:02:22 by mcanal            #+#    #+#             */
+/*   Updated: 2015/01/16 03:11:31 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ft_lswap(t_lst *lst1, t_lst *lst2)
 	if (lst1->prev != lst2)
 		target = lst1->prev;
 	else
-		target = lst1->prev->prev;
+		target = lst1;
 	ft_ldellink(lst1);
 	ft_lrplc(lst2, lst1);
 	ft_linser(&target, lst2);

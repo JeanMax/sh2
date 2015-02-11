@@ -11,11 +11,11 @@
 /* ************************************************************************** */
 
 /*
-**	 Alloue (avec malloc(3)) et retourne la copie “fraiche” d’un tronçon de la
-**   chaine de caractères passée en paramètre. Le tronçon commence à l’index
-**   start et à pour longueur len. Si start et len ne désignent pas un tronçon
-**   de chaine valide, le comportement est indéterminé. Si l’allocation échoue,
-**   la fonction renvoie NULL.
+** Assign (with malloc (3)) and returns the fresh copy of a section of the
+** character string given in parameter. The section begins in the index
+** "start" and has for length "len". If "start" and "len" does not indicate
+** a section of valid string, the behavior is indefinite. If the allocation
+** fails, the function returns NULL.
 */
 
 #include "libft.h"

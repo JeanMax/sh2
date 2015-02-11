@@ -11,12 +11,11 @@
 /* ************************************************************************** */
 
 /*
-** Retourne une ligne lue dans un descripteur de fichier.
-** Le premier paramètre est le descripteur de fichier depuis lequel lire L
-** second paramètre est l’adresse d’un pointeur sur caractère i servira
-** stocker la ligne lue sur le descripteur de fichier. La valeur de retour peut
-** être 1, 0 ou -1 selon qu’une ligne a été lue, que la lecture est term
-** ou bien qu’une erreur est survenue respectivement.
+** Return a line read in a file descriptor.
+** The first one parametre is the file descriptor, the second parametre is
+** the address of a string which will store the line read on the file
+** descriptor. The return value can be 1, 0 or -1 as a line has been read,
+** as the reading is done, either that an error happened respectively.
 */
 
 #include "libft.h"

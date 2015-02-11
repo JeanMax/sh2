@@ -11,9 +11,8 @@
 /* ************************************************************************** */
 
 /*
-** Compare lexicographiquement s1 et s2 jusqu’à n caractères
-** maximum ou bien qu’un ’\0’ ait été rencontré. Si les deux
-** chaines sont égales, la fonction retourne 1, ou 0 sinon.
+** Lexicographically compares s1 and s2. If both strings
+** are equal, the function returns 1, or 0 otherwise.
 */
 
 #include "libft.h"

@@ -11,9 +11,9 @@
 /* ************************************************************************** */
 
 /*
-** Alloue (avec malloc(3)) et retourne une chaine de caractères
-** “fraiche” terminée par un ’\0’ résultant de la concaténation
-** de s1 et s2. Si l’allocation echoue, la fonction renvoie NULL.
+** Assign (with malloc (3)) and returns a  fresh character string
+** ended with one '\0' resulting from the concatenation of s1 and s2.
+** If the allocation fails, the function returns NULL.
 */
 
 #include "libft.h"

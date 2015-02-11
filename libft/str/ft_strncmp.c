@@ -11,8 +11,8 @@
 /* ************************************************************************** */
 
 /*
-** The  strncmp()  function  is similar, except it compares the only first
-** (at most) n bytes of s1 and s2.
+** The  strncmp() function  is similar to strcmp(), except it compares the
+** only first (at most) n bytes of s1 and s2.
 */
 
 #include "libft.h"

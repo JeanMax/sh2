@@ -6,43 +6,62 @@
 #    By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/29 13:16:03 by mcanal            #+#    #+#              #
-#    Updated: 2015/02/10 23:41:43 by mcanal           ###   ########.fr        #
+#    Updated: 2015/02/11 01:47:43 by mcanal           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
-NAME = ft_minishell2
-
-SRCC = 	main.c				error.c				fill_env.c			\
+NAME =	ft_minishell2
+C_SRC =	main.c				error.c				fill_env.c			\
 		fork_and_sig.c		prompt.c			exec.c				\
-		split_it.c													\
-		builtin/builtin.c	builtin/exit.c		builtin/env.c		\
-		builtin/unsetenv.c	builtin/cd.c		builtin/setenv.c	\
-		redirection/redirection.c		redirection/semicolon.c		\
-		redirection/simple_right.c		redirection/simple_left.c	\
-		redirection/double_right.c		redirection/double_left.c	\
-		redirection/simple_pipe.c		redirection/space_error.c	\
+		split_it.c
+C_BUI =	builtin.c			exit.c				env.c				\
+		unsetenv.c			cd.c				setenv.c
+C_RED =	redirection.c		semicolon.c								\
+		simple_right.c		simple_left.c							\
+		double_right.c		double_left.c							\
+		simple_pipe.c		space_error.c
+O_DIR =	obj
+VPATH =	src:src/builtin:src/redirection
+SRCC = 	$(C_SRC:%.c=src/%.c)		$(C_BUI:%.c=src/builtin/%.c)	\
+		$(C_RED:%.c=src/redirection/%.c)
+SRCO =	$(C_SRC:%.c=$(O_DIR)/%.o)	$(C_BUI:%.c=$(O_DIR)/%.o)		\
+		$(C_RED:%.c=$(O_DIR)/%.o)	
+LIB =	libft/libft.a
+INC =	inc/header.h
+CC =	gcc
+RM =	rm -f
+CFLAGS = -Wall -Werror -Wextra -I./inc/
 
-SRCO = zboub
+.PHONY: all lib soft debug optimize clean fclean re
 
-FLAG = -Wall -Werror -Wextra
+all: 
+	@make -C libft
+	@$(MAKE) $(NAME)
 
-.PHONY: all lib brute clean fclean re
+$(NAME): $(SRCO) $(LIB) $(INC)
+	@$(CC) $(CFLAGS) $(SRCO) $(LIB) -o $@
 
-all: $(NAME)
+$(O_DIR)/%.o: %.c
+	@$(RM) $(NAME)
+	$(CC) $(CFLAGS) -c $^ -o $@
 
-$(NAME):
-	@rm -f $(NAME)
-	@gcc $(FLAG) $(SRCC) -o $(NAME) -I ./libft/inc/ -I ./ libft/libft.a
+soft:
+	@$(RM) $(NAME)
+	@$(CC) $(SRCC) $(LIB) -o $(NAME)
+	@./$(NAME)
 
-lib:
-	@cd libft; make re; cd ..
+debug: re
+	@$(CC) $(CFLAGS) -ggdb $(SRCO) $(LIB) -o $(NAME)
+	@gdb $(NAME)
 
-brute: lib fclean all
+optimize: re
+	@$(CC) $(CFLAGS) -02 $(SRCO) $(LIB) -o $(NAME)
 
 clean:
-	@rm -f $(SRCO)
+	@$(RM) $(SRCO)
 
 fclean: clean
-	@rm -f $(NAME)
+	@$(RM) $(NAME)
 
 re: fclean all
+

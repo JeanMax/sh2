@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 /*
-** Affiche le caractère c sur la sortie standard (coloré).
+** Print the char c on stdout, with colors!
 ** clr = yellow, blue, red, green, pink, sky, white, (default = grey)
 */
 

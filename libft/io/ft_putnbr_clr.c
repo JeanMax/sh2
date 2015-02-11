@@ -11,7 +11,8 @@
 /* ************************************************************************** */
 
 /*
-** Affiche l’entier n sur la sortie standard (coloré).
+** Print the int n on stdout, with colors!
+** clr = yellow, blue, red, green, pink, sky, white, (default = grey)
 */
 
 #include "libft.h"

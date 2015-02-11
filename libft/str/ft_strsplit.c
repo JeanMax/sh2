@@ -11,12 +11,12 @@
 /* ************************************************************************** */
 
 /*
-** Alloue (avec malloc(3)) et retourne un tableau de chaines de caractères
-** “fraiches” (toutes terminées par un ’\0’, le tableau également donc)
-** résultant de la découpe de s selon le caractère c. Si l’allocation echoue,
-** la fonction retourne NULL.
-** Exemple : ft_strsplit("*salut*les***etudiants*", ’*’) renvoie le tableau
-** ["salut", "les", "etudiants"].
+** Assign (with malloc (3)) and returns an array of fresh character strings
+** (all ended with one '\0 ', the array also thus) tesulting from the cut of
+** s according to the character c. If the allocation fails,
+** the function returns NULL.
+** Example: ft_strsplit("*what*is***up*", ’*’) returns the array
+** ["what", "is", "up"].
 */
 
 #include "libft.h"

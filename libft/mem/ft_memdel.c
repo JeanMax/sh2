@@ -11,8 +11,8 @@
 /* ************************************************************************** */
 
 /*
-** Prend en paramètre l’adresse d’un pointeur dont la zone pointée doit être
-** libérée avec free(3), puis le pointeur est mis à NULL.
+** Takes in parameter the address of a pointer whose pointed zone has to be
+** freed with free (3), then the pointer is set to NULL.
 */
 
 #include "libft.h"

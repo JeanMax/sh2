@@ -6,7 +6,7 @@
 /*   By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/03 14:13:23 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/05 17:38:46 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/11 01:25:37 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,6 @@
 
 # include <string.h>
 # include "edit.h"
-
-/*
-** lst1 struct
-*/
-typedef struct s_list	t_list;
-struct	s_list
-{
-	void	*content;
-	size_t	content_size;
-	t_list	*next;
-};
 
 /*
 ** io
@@ -76,7 +65,6 @@ void	ft_lstadd(t_list **alst, t_list *new);
 void	ft_lstaddlast(t_list **alst, t_list *new);
 void	ft_lstdel(t_list **alst, void (*del)(void *, size_t));
 void	ft_lstdellink(t_list **alst, t_list *lst);
-void	ft_lstdelone(t_list **alst, void (*del)(void*, size_t));
 void	ft_lstinser(t_list **alst, t_list *new);
 void	ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 void	ft_lstrplc(t_list **alst, t_list *old, t_list *new);
@@ -86,9 +74,6 @@ int		ft_lstisn(t_list **alst, t_list *lst);
 int		ft_lstlen(t_list **alst);
 t_list	*ft_lstlast(t_list **alst);
 t_list	*ft_lstat(t_list **alst, size_t n);
-t_list	*ft_lstfind(t_list **alst, void *data);
-t_list	*ft_lstnew(void const *content, size_t content_size);
-t_list	*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 
 /*
 ** lst2
@@ -114,7 +99,9 @@ void	ft_lclean(t_lst **alst);
 ** mem
 */
 void	ft_bzero(void *s, size_t n);
-void	ft_freetab(char **tab);
+char	**ft_cpystab(char **tab, char *val);
+void	ft_freestab(char **tab);
+void	ft_freeitab(int *tab);
 void	ft_memdel(void **ap);
 void	*ft_memalloc(size_t size);
 void	*ft_memccpy(void *dest, const void *src, int c, size_t n);
@@ -153,6 +140,7 @@ char	*ft_strmap(char const *s, char (*f)(char));
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 char	*ft_strncat(char *dest, const char *src, size_t n);
 char	*ft_strncpy(char *dest, const char *src, size_t n);
+char	*ft_strndup(char *src, size_t n);
 char	*ft_strnew(size_t size);
 char	*ft_strnstr(const char *s1, const char *s2, size_t n);
 char	*ft_strrchr(const char *s, int c);

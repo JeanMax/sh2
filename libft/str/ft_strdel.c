@@ -11,8 +11,8 @@
 /* ************************************************************************** */
 
 /*
-** Prend en paramètre l’adresse d’une chaine de caractères qui
-** doit être libérée avec free(3) et son pointeur mis à NULL.
+** Takes in parameter the address of a character string which
+** must be freed with free (3) and his pointer set to NULL.
 */
 
 #include "libft.h"

@@ -11,8 +11,8 @@
 /* ************************************************************************** */
 
 /*
-** Assigne la valeur ’\0’ à tous les caractères de la chaine
-** passée en paramètre.
+** Assign the value '\0' to all the characters of the string
+** given in parameter.
 */
 
 #include "libft.h"

@@ -12,7 +12,7 @@
 
 /*
 ** The atoi() function converts the initial portion of the string  pointed
-**   to by nptr to int.
+** to by nptr to int.
 */
 
 #include "libft.h"

@@ -11,10 +11,10 @@
 /* ************************************************************************** */
 
 /*
-** Alloue (avec malloc(3)) et retourne une chaine de caractères “fraiche”
-** terminée par un ’\0’ représentant l’entier n passé en paramètre.
-** Les nombres négatifs doivent être gérés. Si l’allocation échoue,
-** la fonction renvoie NULL.
+** Assign (with malloc (3)) and turns(returns) a "fresh" character string
+** ended with one '\0 ' representing the integer n given in parameter.
+** The negative numbers must be managed. If the allocation fails,
+** the function return NULL.
 */
 
 #include "libft.h"

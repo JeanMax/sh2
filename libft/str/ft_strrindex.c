@@ -11,9 +11,9 @@
 /* ************************************************************************** */
 
 /*
-** Similaire à ft_strrchr, mais retourne un int (index) indiquant la position du
-** dernier caractere recherché et trouvé dans la chaine.
-** Retourne -1 en cas d'echec.
+** Similar to ft_strrchr, but return an int (index) indicating the position of
+** last character searched and found in the string.
+** Returns -1 if fail.
 */
 
 #include "libft.h"

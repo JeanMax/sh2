@@ -6,7 +6,7 @@
 /*   By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/15 03:55:50 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/07 21:48:03 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/11 01:12:36 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int	get_line(int const fd, char **a)
 	if (!a || fd < 0)
 		return (0);
 	*a = ft_strnew(1);
-	n = 0;
 	while ((i = read(fd, buf, BUFF_SIZE)) > 0)
 	{
 		buf[i] = '\0';

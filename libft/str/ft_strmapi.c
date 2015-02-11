@@ -11,9 +11,9 @@
 /* ************************************************************************** */
 
 /*
-** Applique la fonction f à chaque caractère de la chaine de caractères
-** passée en paramètre en précisant son index pour créer une nouvelle chaine
-** “fraiche” (avec malloc(3)) résultant des applications successives de f.
+** Apply the function f to every character of the character string
+** given in parameter by specifying its index to create a new fresh string
+** (with malloc (3)) resulting from successive applications of f.
 */
 
 #include "libft.h"

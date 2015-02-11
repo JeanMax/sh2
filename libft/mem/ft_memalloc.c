@@ -11,8 +11,9 @@
 /* ************************************************************************** */
 
 /*
-** Alloue (avec malloc(3)) et retourne une zone de mémoire “fraiche”. La mémoire
-** allouée est initialisée à 0. Si l’allocation échoue, la fonction renvoie NULL
+** Allocate (with malloc (3)) and returns a fresh zone of memory. The memory
+** allocated is initialized to 0. If the allocation fails,
+** the function returns NULL.
 */
 
 #include "libft.h"
