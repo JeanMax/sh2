@@ -6,7 +6,7 @@
 #    By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/29 13:16:03 by mcanal            #+#    #+#              #
-#    Updated: 2015/02/11 21:59:41 by mcanal           ###   ########.fr        #
+#    Updated: 2015/02/11 22:16:53 by mcanal           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -63,7 +63,7 @@ fclean: clean
 	@$(RM) $(NAME)
 
 zclean: fclean
-	@$(RM) $(LIB)
+	@make -C libft fclean
 
 re: fclean all
 
