@@ -6,22 +6,27 @@
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/24 17:02:18 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/11 01:35:34 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/11 21:58:36 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /*
+** handle prompt loop
 ** print a pretty prompt
+** split line in a tab (space and tab as separators, handle ; " and ')
 */
 
 #include "header.h"
 
-void	prompt(t_env *e)
+extern pid_t	g_pid1;
+extern pid_t	g_pid2;
+
+void			prompt(t_env *e)
 {
-	char	*user;
-	char	*pwd;
-	char	*home;
-	int		i;
+	char		*user;
+	char		*pwd;
+	char		*home;
+	int			i;
 
 	i = 0;
 	user = get_env("USER", e);
@@ -42,4 +47,75 @@ void	prompt(t_env *e)
 	ft_memdel((void *)&user);
 	ft_memdel((void *)&pwd);
 	ft_memdel((void *)&home);
+}
+
+static char		**split_that(char *s)
+{
+	int			 i;
+
+	i = -1;
+	while (s[++i])
+	{
+		if (s[i] == '\'')
+		{
+			s[i] = -42;
+			while (s[++i] != '\'')
+				if (!s[i])
+					return (failn("Unmatched \'."));
+			s[i] = -42;
+		}
+		else if (s[i] == '\"')
+		{
+			s[i] = -42;
+			while (s[++i] != '\"')
+				if (!s[i])
+					return (failn("Unmatched \"."));
+			s[i] = -42;
+		}
+		else if (s[i] == ' ' || s[i] == '\t')
+			s[i] = -42;
+	}
+	return (ft_strsplit(s, -42));
+}
+
+static void		semicolon(char *line, t_env *e)
+{
+	char		**sc_tab;
+	char		**cmd;
+	int			i;
+
+	sc_tab = ft_strsplit(line, ';');
+	i = 0;
+	while (sc_tab[i])
+	{
+		cmd = split_that(sc_tab[i]);
+		launch_cmd(cmd, e);
+		ft_freestab(cmd);
+		i++;
+	}
+	ft_freestab(sc_tab);
+	ft_memdel((void *)&line);
+}
+
+void			prompt_loop(char **av, t_env *e)
+{
+	char		*line;
+	char		**cmd;
+
+	while (42)
+	{
+		prompt(e);
+		g_pid1 = g_pid2;
+		get_line(0, &line) ? NULL : ft_exit(0, av);
+		if (ft_strindex(line, ';') != -1)
+		{
+			semicolon(line, e);
+			continue ;
+		}
+		if (!(cmd = split_that(line)))
+			continue ;
+		launch_cmd(cmd, e);
+		ft_memdel((void *)&line);
+		cmd[0] ? ft_freestab(cmd) : NULL;
+	}
 }

@@ -1,26 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec.c                                             :+:      :+:    :+:   */
+/*   exec.c			                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/01/28 16:22:42 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/11 00:53:03 by mcanal           ###   ########.fr       */
+/*   Created: 2015/01/23 21:32:33 by mcanal            #+#    #+#             */
+/*   Updated: 2015/02/11 20:28:09 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /*
-** handle the execution of a command trough execv
+** handling forks, commands launching, and execve call
 */
 
 #include "header.h"
 
-void	call_execve(char **cmd, t_env *e)
+extern pid_t	g_pid1;
+extern pid_t	g_pid2;
+
+static void		call_execve(char **cmd, t_env *e)
 {
-	int		i;
-	char	*join;
-	char	*tmp;
+	int			i;
+	char		*join;
+	char		*tmp;
 
 	ft_freestab(e->path);
 	get_path(e);
@@ -40,4 +43,41 @@ void	call_execve(char **cmd, t_env *e)
 		}
 		error("cmd", cmd[0]);
 	}
+}
+
+static void		fork_it(char **cmd, t_env *e)
+{
+	if ((g_pid2 = fork()) < 0)
+		error("Fork", NULL);
+	else if (!g_pid2)
+		call_execve(cmd, e);
+	else
+		wait(NULL);
+}
+
+void			launch_cmd(char **cmd, t_env *e)
+{
+	int		i;
+	char	*tmp;
+
+	if (!cmd[0])
+		return ;
+	i = -1;
+	while (cmd[++i])
+		if (cmd[i][0] == '$' || cmd[i][0] == '~')
+		{
+			tmp = cmd[i];
+			cmd[i] = cmd[i][0] == '~' ?\
+				ft_strjoin(get_env("HOME", e), cmd[i] + 1) : get_env(cmd[i] + 1, e);
+			ft_memdel((void *)&tmp);
+		}
+	i = 0;
+	while (cmd[i])
+		if (ft_strchr(cmd[i], '>') || ft_strchr(cmd[i], '<')\
+			|| ft_strchr(cmd[i++], '|'))
+		{
+			redirect(cmd, e, 0);
+			return ;
+		}
+	is_builtin(cmd, e) ? launch_builtin(cmd, e) : fork_it(cmd, e);
 }

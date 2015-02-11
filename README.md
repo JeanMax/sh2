@@ -8,8 +8,9 @@ fsh inside! (FlexShell)
 * norme
 * handle some more signals : ctrl-z (SIGTSTP, suspend)... stty -a for more infos
 * memory unsetenv?, space_error, various redirect... probably some more
-* > and >> : weird behaviour with echo -> WHAT??!
-* handle "~/..."
+* free error with env -i?
+* handle error output redirecting
+* manage to push an empty folder (obj)
 * add to cd : cd [-p] [-l] [-n|-v]
 
 "If name is not a subdirectory of the current directory (and does not begin with '/', './' or '../'), each component of the variable cdpath is checked to see if it has a subdirectory name. Finally, if all else fails but name is a shell variable whose value begins with '/', then this is tried to see if it is a directory.

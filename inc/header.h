@@ -6,7 +6,7 @@
 /*   By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/29 13:23:15 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/11 02:32:07 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/11 21:58:45 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ struct	s_env
 ** prototypes
 */
 int		need_space(char **cmd);
-char	**split_it(char const *s);
 int		is_builtin(char **cmd, t_env *e);
 char	**spaces_error(char **cmd);
 void	simple_right(char **cmd, t_env *e);
@@ -57,17 +56,12 @@ void	simple_pipe(char **cmd, t_env *e);
 void	doble_left(char **cmd, t_env *e);
 void	doble_right(char **cmd, t_env *e);
 void	redirect(char **cmd, t_env *e, int i);
-void	semicolon(char *line, t_env *e);
 void	init(int ac, char **ae, t_env *e);
 void	prompt(t_env *e);
 void	error(char *type, char *msg);
-void	call_execve(char **cmd, t_env *e);
-void	fork_it(char **cmd, t_env *e);
 void	get_path(t_env *e);
-void	get_builtin(t_env *e);
 char	**set_av(char *s1, char *s2, t_env *e, int go);
 char	*get_env(char *var, t_env *e);
-char	**cpy_env(char **ae, char *val);
 void	launch_cmd(char **cmd, t_env *e);
 void	launch_builtin(char **av, t_env *e);
 void	prompt_loop(char **av, t_env *e);

@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fill_env.c                                         :+:      :+:    :+:   */
+/*   handle_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/12 07:46:30 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/11 00:53:12 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/11 20:41:34 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /*
 ** get $PATH from env (**ae);
-** get builtin foncions list (cd, setenv, unsetenv, env, exit);
-** save them in t_env variable (*e).
+** set an entry of env var
+** get the appropriate env entry
 */
 
 #include "header.h"
@@ -38,27 +38,6 @@ char	**set_av(char *s1, char *s2, t_env *e, int go)
 		ft_putendl(ft_strrindex(s2, '/') != (int)ft_strlen(s2) - 1 ?\
 					s2 + ft_strrindex(s2, '/') + 1 : s2);
 	return (av);
-}
-
-char	**cpy_env(char **ae, char *val)
-{
-	int		i;
-	char	**new_env;
-
-	i = 0;
-	while (ae[i])
-		i++;
-	new_env = malloc((i + (val ? 2 : 1)) * sizeof(char *));
-	i = 0;
-	while (ae[i])
-	{
-		new_env[i] = ft_strdup(ae[i]);
-		i++;
-	}
-	if (val)
-		new_env[i] = ft_strdup(val);
-	new_env[i + (val ? 1 : 0)] = NULL;
-	return (new_env);
 }
 
 char	*get_env(char *var, t_env *e)
@@ -102,15 +81,4 @@ void	get_path(t_env *e)
 	tmp = ft_strdup((e->env)[i]);
 	e->path = ft_strsplit(tmp + 5, ':');
 	ft_memdel((void *)&tmp);
-}
-
-void	get_builtin(t_env *e)
-{
-	e->builtin = malloc(6 * sizeof(char *));
-	(e->builtin)[0] = ft_strdup("cd");
-	(e->builtin)[1] = ft_strdup("setenv");
-	(e->builtin)[2] = ft_strdup("unsetenv");
-	(e->builtin)[3] = ft_strdup("env");
-	(e->builtin)[4] = ft_strdup("exit");
-	(e->builtin)[5] = ft_strnew(1);
 }

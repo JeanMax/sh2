@@ -6,7 +6,7 @@
 /*   By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/12 07:40:39 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/07 21:27:39 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/11 20:38:16 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void		var_exist(t_env *e, char *var, char *val)
 		(e->env)[j] = ft_strdup(val);
 	}
 	else
-		e->env = cpy_env(e->env, val);
+		e->env = ft_cpystab(e->env, val);
 }
 
 void			ft_setenv(char **av, t_env *e)

@@ -6,7 +6,7 @@
 /*   By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/12 07:42:03 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/11 00:52:27 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/11 20:37:47 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void			ft_env(char **av, t_env *e)
 	i = 0;
 	e->first_l = NULL;
 	cmd = check_cmd(av);
-	new_ae = cpy_env(e->env, NULL);
+	new_ae = ft_cpystab(e->env, NULL);
 	edit_env(av, new_ae, e);
 	if (!cmd && new_ae)
 		while (new_ae[i])
@@ -94,7 +94,7 @@ void			ft_env(char **av, t_env *e)
 	}
 	av = e->env;
 	e->env = new_ae;
-	cmd ? fork_it(&cmd[0], e) : 0;
+	cmd ? launch_cmd(&cmd[0], e) : 0;
 	e->env = av;
 	new_ae ? ft_freestab(new_ae) : 0;
 	e->first_l ? ft_lclean(&(e->first_l)) : 0;
