@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_right.c                                      :+:      :+:    :+:   */
+/*   error_s_right.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/11 23:21:07 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/12 00:36:56 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/12 01:22:08 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ static void	handle_fd(int file_fd, char **cmd, t_env *e)
 	close(in_fd);
 }
 
-void		error_right(char **cmd, t_env *e)
+void		error_s_right(char **cmd, t_env *e)
 {
 	int		file_fd;
 	int		i;

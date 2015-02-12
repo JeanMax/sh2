@@ -6,7 +6,7 @@
 /*   By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/29 13:23:15 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/12 00:14:43 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/12 01:24:01 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ void	simple_left(char **cmd, t_env *e);
 void	simple_pipe(char **cmd, t_env *e);
 void	doble_left(char **cmd, t_env *e);
 void	doble_right(char **cmd, t_env *e);
-void	error_right(char **cmd, t_env *e);
+void	error_d_right(char **cmd, t_env *e);
+void	error_s_right(char **cmd, t_env *e);
 void	error_pipe(char **cmd, t_env *e);
 void	redirect(char **cmd, t_env *e, int i);
 void	init(int ac, char **ae, t_env *e);

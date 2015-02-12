@@ -6,7 +6,7 @@
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/24 20:59:31 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/12 00:44:44 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/12 01:23:32 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,10 @@ void	redirect(char **c, t_env *e, int i)
 	while (c[++i])
 		if (ft_strchr(c[i], '>'))
 		{
-			if (ft_strchr(c[i], '&'))
-				error_right(c, e);
+			if (ft_strstr(c[i], ">>&"))
+				error_d_right(c, e);
+			else if (ft_strchr(c[i], '&'))
+				error_s_right(c, e);
 			else
 				ft_strstr(c[i], ">>") ? doble_right(c, e) : simple_right(c, e);
 			return ;
