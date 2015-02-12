@@ -6,7 +6,7 @@
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/24 17:02:18 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/11 21:58:36 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/12 20:36:17 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void			prompt(t_env *e)
 
 static char		**split_that(char *s)
 {
-	int			 i;
+	int			i;
 
 	i = -1;
 	while (s[++i])
@@ -112,9 +112,8 @@ void			prompt_loop(char **av, t_env *e)
 			semicolon(line, e);
 			continue ;
 		}
-		if (!(cmd = split_that(line)))
-			continue ;
-		launch_cmd(cmd, e);
+		if ((cmd = split_that(line)))
+			launch_cmd(cmd, e);
 		ft_memdel((void *)&line);
 		cmd[0] ? ft_freestab(cmd) : NULL;
 	}

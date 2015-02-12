@@ -6,7 +6,7 @@
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/25 18:44:22 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/12 02:06:28 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/12 20:22:43 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ static int		tab_len(char **c, int len, char *s)
 	!ft_strcmp(s, "|&") || !ft_strcmp(s, ">&") || !ft_strcmp(s, ">>&")) ? 1 : 0;
 			len += (*s != '>' && *s != '<' && *s != '|' && *s != '&') ? 1 : 0;
 			s += ((*(s + 1) == '>' || *(s + 1) == '&') && *s == '>') ||\
-		(*(s + 1) == '<' && *s == '<') || (*(s + 1) == '&' && *s == '|') ? 1 : 0;
+	(*(s + 1) == '<' && *s == '<') || (*(s + 1) == '&' && *s == '|') ? 1 : 0;
 			while (*s)
 			{
 				if (*s == '>' || *s == '<' || *s == '|' || *s == '&')
 					len += *(s + 1) ? 2 : 1;
- 				s += ((*(s + 1) == *s || *(s + 1) == '&') && *s == '>') ||\
+				s += ((*(s + 1) == *s || *(s + 1) == '&') && *s == '>') || \
 		(*(s + 1) == *s && *s == '<') || (*(s + 1) == '&' && *s == '|') ? 2 : 1;
 			}
 			len -= (((*(s - 1) == *(s - 2) || ((*(s - 2) == '>' ||\
@@ -48,7 +48,7 @@ static int		tab_len(char **c, int len, char *s)
 	return (len);
 }
 
-static int			count_it(char *s1)
+static int		count_it(char *s1)
 {
 	size_t	i;
 
@@ -60,15 +60,17 @@ static int			count_it(char *s1)
 			s1++;
 		}
 	else
+	{
 		while (*s1 && (*s1 == '>' || *s1 == '<' || *s1 == '|' || *s1 == '&'))
 		{
 			i++;
 			s1++;
 		}
+	}
 	return (i);
 }
 
-static void			add_spaces(char **c1, char **c2)
+static void		add_spaces(char **c1, char **c2)
 {
 	size_t	i;
 	char	*s;
@@ -87,29 +89,7 @@ static void			add_spaces(char **c1, char **c2)
 	}
 }
 
-int					need_space(char **cmd)
-{
-	char	*s;
-
-	while (*cmd)
-	{
-		s = *cmd;
-		while (*(s + 1))
-		{
-			if (((*s == '>' || *s == '<' || *s == '|' || *s == '&')\
-				&& (*(s + 1) != '>' && *(s + 1) != '<' && *(s + 1) != '|' \
-				&& *(s + 1) != '&')) || ((*s != '>' && *s != '<' && *s != '|'\
-				&& *s != '&') && (*(s + 1) == '>' || *(s + 1) == '<'\
-				|| *(s + 1) == '|' || *(s + 1) == '&')))
-				return (1);
-			s++;
-		}
-		cmd++;
-	}
-	return (0);
-}
-
-char				**spaces_error(char **cmd1)
+char			**spaces_error(char **cmd1)
 {
 	char	**cmd2;
 	int		i;
@@ -118,6 +98,5 @@ char				**spaces_error(char **cmd1)
 	cmd2 = (char **)malloc(sizeof(char *) * (i + 1));
 	cmd2[i] = NULL;
 	add_spaces(cmd1, cmd2);
-//	ft_freestab(cmd1); //TODO
 	return (cmd2);
 }

@@ -6,7 +6,7 @@
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/23 22:48:44 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/12 02:07:17 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/12 19:49:32 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 #include "header.h"
 
-static void	check_error(char **cmd, char *pgm)
+static void		check_error(char **cmd, char *pgm)
 {
 	int		i;
 
@@ -40,7 +40,7 @@ static void	check_error(char **cmd, char *pgm)
 	}
 }
 
-static char	**check_cmd(char **cmd)
+static char		**check_cmd(char **cmd)
 {
 	int		i;
 	int		j;
@@ -68,7 +68,7 @@ static char	**check_cmd(char **cmd)
 	return (cmd);
 }
 
-static int	is_ambiguous(char **cmd)
+static int		is_ambiguous(char **cmd)
 {
 	int		i;
 
@@ -86,7 +86,7 @@ static int	is_ambiguous(char **cmd)
 	return (0);
 }
 
-static void	 handle_fd(int file_fd, char **cmd, t_env *e)
+static void		handle_fd(int file_fd, char **cmd, t_env *e)
 {
 	int		err_fd;
 	int		in_fd;
@@ -103,7 +103,7 @@ static void	 handle_fd(int file_fd, char **cmd, t_env *e)
 	close(in_fd);
 }
 
-void		error_d_right(char **c, t_env *e)
+void			error_d_right(char **c, t_env *e)
 {
 	int		file_fd;
 	int		i;
@@ -120,8 +120,7 @@ void		error_d_right(char **c, t_env *e)
 		return ;
 	if ((file_fd = open(c[i + 1], O_WRONLY | O_CREAT | O_APPEND, 0664)) < 0)
 		error("open", c[i + 1]);
-	i--;
-	while (c[++i])
-		c[i] = NULL;
+	while (c[i])
+		ft_memdel((void *)&c[i++]);
 	handle_fd(file_fd, c, e);
 }

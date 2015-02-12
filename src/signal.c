@@ -6,12 +6,12 @@
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/11 20:13:58 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/11 20:39:39 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/12 20:34:28 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /*
-** signal handling and init function (get env and builtin foncions list) 
+** signal handling and init function (get env and builtin foncions list)
 */
 
 #include "header.h"

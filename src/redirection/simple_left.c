@@ -6,7 +6,7 @@
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/23 22:48:20 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/11 23:03:50 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/12 19:51:14 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,8 @@ static void		compress_cmd(char **cmd, int i)
 	i = j ? i - 1 : i;
 	while (j && cmd[i++ + j])
 		cmd[i] = cmd[i + j];
-	i--;
-	while (cmd[++i])
-		cmd[i] = NULL;
+	while (cmd[i])
+		ft_memdel((void *)&cmd[i++]);
 }
 
 void			simple_left(char **cmd, t_env *e)

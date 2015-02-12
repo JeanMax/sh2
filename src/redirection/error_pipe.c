@@ -6,7 +6,7 @@
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/11 23:21:24 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/12 00:46:54 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/12 19:49:46 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void		father(int *pipe_fd, char **cmd1, t_env *e)
 	dup2(pipe_fd[1], 2);
 	close(pipe_fd[1]);
 	launch_cmd(cmd1, e);
-	dup2(save_fd1, 1);	
+	dup2(save_fd1, 1);
 	dup2(save_fd2, 2);
 	close(save_fd1);
 	close(save_fd2);
@@ -78,9 +78,8 @@ void			error_pipe(char **cmd, t_env *e)
 	if (!cmd[i + 1] || !ft_strcmp(cmd[0], "|&"))
 		return ;
 	new_cmd = ft_cpystab(&cmd[i + 1], NULL);
-	i--;
-	while (cmd[++i])
-		cmd[i] = NULL;
+	while (cmd[i])
+		ft_memdel((void *)&cmd[i++]);
 	fork_that(cmd, new_cmd, e);
 	ft_freestab(new_cmd);
 }

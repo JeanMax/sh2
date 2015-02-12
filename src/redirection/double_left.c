@@ -6,7 +6,7 @@
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/23 22:48:29 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/11 23:03:58 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/12 20:04:23 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,18 +84,15 @@ static void			get_text(char **a, char *here)
 	to_free = ft_strjoin(here, "\n");
 	*a = ft_strnew(1);
 	ft_putstr("? ");
-	while (get_that_line(0, &tmp))
+	while (get_that_line(0, &tmp) && ft_strcmp(tmp, to_free))
 	{
-		if (!ft_strcmp(tmp, to_free))
-		{
-			ft_memdel((void *)&to_free);
-			break ;
-		}
 		ft_putstr("? ");
 		len = ft_strlen(*a);
 		*a = (char *)ft_realloc((void *)*a, len, len + ft_strlen(tmp));
 		ft_strcat(*a, tmp);
+		ft_memdel((void *)&tmp);
 	}
+	ft_memdel((void *)&tmp);
 	ft_memdel((void *)&to_free);
 }
 
@@ -111,9 +108,8 @@ static void			compress_cmd(char **cmd, int i)
 	i = j ? i - 1 : i;
 	while (j && cmd[i++ + j])
 		cmd[i] = cmd[i + j];
-	i--;
-	while (cmd[++i])
-		cmd[i] = NULL;
+	while (cmd[i])
+		ft_memdel((void *)&cmd[i++]);
 }
 
 void				doble_left(char **cmd, t_env *e)
@@ -132,7 +128,7 @@ void				doble_left(char **cmd, t_env *e)
 		ft_putendl_fd("Invalid null command.", 2);
 	if (!cmd[i + 1] || !ft_strcmp(cmd[0], "<<"))
 		return ;
-	get_text(&all, cmd[i + 1]); //check return ?
+	get_text(&all, cmd[i + 1]);
 	compress_cmd(cmd, i);
 	pipe(pipe_fd) < 0 ? error("Pipe", NULL) : NULL;
 	fork_that(cmd, e, pipe_fd, all);

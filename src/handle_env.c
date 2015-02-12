@@ -6,7 +6,7 @@
 /*   By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/12 07:46:30 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/11 20:41:34 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/12 19:13:12 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,7 @@ char	*get_env(char *var, t_env *e)
 								(int)ft_strlen(var) > ft_strindex(ae[i], '=') ?
 								(int)ft_strlen(var) : ft_strindex(ae[i], '=')))
 		i++;
-	if (!ae[i])
-		return (ft_strnew(1));
-	return (ft_strdup(ae[i] + len + 1));
+	return (ae[i] ? ft_strdup(ae[i] + len + 1) : ft_strnew(1));
 }
 
 void	get_path(t_env *e)

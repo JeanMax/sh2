@@ -6,7 +6,7 @@
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/11 23:21:07 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/12 01:22:08 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/12 19:50:04 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,8 +120,7 @@ void		error_s_right(char **cmd, t_env *e)
 		return ;
 	if ((file_fd = open(cmd[i + 1], O_WRONLY | O_CREAT | O_TRUNC, 0664)) < 0)
 		error("open", cmd[i + 1]);
-	i--;
-	while (cmd[++i])
-		cmd[i] = NULL;
+	while (cmd[i])
+		ft_memdel((void *)&cmd[i++]);
 	handle_fd(file_fd, cmd, e);
 }
