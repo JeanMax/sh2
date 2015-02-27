@@ -6,7 +6,7 @@
 #    By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/09/09 21:26:32 by mcanal            #+#    #+#              #
-#    Updated: 2015/02/11 03:40:15 by mcanal           ###   ########.fr        #
+#    Updated: 2015/02/15 18:29:11 by mcanal           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -75,7 +75,7 @@ all:
 	@$(MAKE) $(NAME)
 
 $(NAME): $(SRCO) $(INC)
-	$(AR) $(NAME) $(SRCO)
+	@$(AR) $(NAME) $(SRCO)
 	@ranlib $(NAME) || $(RM) $(NAME)
 
 $(O_DIR)/%.o: %.c

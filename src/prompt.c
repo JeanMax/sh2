@@ -6,7 +6,7 @@
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/24 17:02:18 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/12 20:36:17 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/27 04:13:55 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ void			prompt_loop(char **av, t_env *e)
 		if ((cmd = split_that(line)))
 			launch_cmd(cmd, e);
 		ft_memdel((void *)&line);
-		cmd[0] ? ft_freestab(cmd) : NULL;
+//		cmd[0] ? ft_freestab(cmd) : NULL;
+		ft_freestab(cmd);
 	}
 }

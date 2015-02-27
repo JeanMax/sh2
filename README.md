@@ -5,9 +5,9 @@ fsh inside! (FlexShell)
 
 ### TODO: ###
 
-* norme
 * handle some more signals : ctrl-z (SIGTSTP, suspend)... stty -a for more infos
-* memory leaks : a tiny one somewhere, if input is only filled with spaces (does not come from get_line or ft_strsplit)
+* segfault with errors redirections on mac os
+* segfault if last "/' missing on mac os
 * free error with env -i? -> just on ubuntu for some reasons...
 * add to cd : cd [-p] [-l] [-n|-v]
 
