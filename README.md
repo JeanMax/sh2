@@ -7,7 +7,6 @@ fsh inside! (FlexShell)
 
 * handle some more signals : ctrl-z (SIGTSTP, suspend)... stty -a for more infos
 * segfault with errors redirections on mac os
-* segfault if last "/' missing on mac os
 * free error with env -i? -> just on ubuntu for some reasons...
 * add to cd : cd [-p] [-l] [-n|-v]
 

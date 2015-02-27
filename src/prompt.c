@@ -6,7 +6,7 @@
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/24 17:02:18 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/27 04:13:55 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/27 05:30:13 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,8 @@ static void		semicolon(char *line, t_env *e)
 	i = 0;
 	while (sc_tab[i])
 	{
-		cmd = split_that(sc_tab[i]);
-		launch_cmd(cmd, e);
-		ft_freestab(cmd);
+		if ((cmd = split_that(sc_tab[i])))
+			launch_cmd(cmd, e), ft_freestab(cmd);
 		i++;
 	}
 	ft_freestab(sc_tab);
@@ -113,9 +112,7 @@ void			prompt_loop(char **av, t_env *e)
 			continue ;
 		}
 		if ((cmd = split_that(line)))
-			launch_cmd(cmd, e);
+			launch_cmd(cmd, e), ft_freestab(cmd);
 		ft_memdel((void *)&line);
-//		cmd[0] ? ft_freestab(cmd) : NULL;
-		ft_freestab(cmd);
 	}
 }
