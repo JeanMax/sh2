@@ -6,7 +6,7 @@
 /*   By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/12 07:42:03 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/11 20:37:47 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/09/15 01:14:46 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,11 @@ static void		edit_env(char **av, char **ae, t_env *e)
 	{
 		if ((count = ft_strindex(av[i], '=') != -1))
 		{
-			env_var = ft_strsub(av[i], 0, count);
+			env_var = ft_strsub(av[i], 0, (size_t)count);
 			j = 0;
 			while (ae[j] && ft_strncmp(ae[j], env_var, ft_strlen(env_var)))
 				j++;
-			!ae[j] ? list_env(av[i], e) : NULL;
+			!ae[j] ? list_env(av[i], e) : (void)0;
 			ae[j] = ae[j] ? ft_strdup(av[i]) : ae[j];
 			ft_memdel((void *)&env_var);
 		}
@@ -94,8 +94,8 @@ void			ft_env(char **av, t_env *e)
 	}
 	av = e->env;
 	e->env = new_ae;
-	cmd ? launch_cmd(&cmd[0], e) : 0;
+	cmd ? launch_cmd(&cmd[0], e) : (void)0;
 	e->env = av;
-	new_ae ? ft_freestab(new_ae) : 0;
-	e->first_l ? ft_lclean(&(e->first_l)) : 0;
+	new_ae ? ft_freestab(new_ae) : (void)0;
+	e->first_l ? ft_lclean(&(e->first_l)) : (void)0;
 }

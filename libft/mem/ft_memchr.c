@@ -6,7 +6,7 @@
 /*   By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/04 15:39:11 by mcanal            #+#    #+#             */
-/*   Updated: 2014/11/09 21:26:50 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/09/11 18:56:23 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 #include "libft.h"
 
-void *ft_memchr(const void *s, int c, size_t n)
+void			*ft_memchr(const void *s, int c, size_t n)
 {
 	if (!s || !n)
 		return (0);
@@ -26,7 +26,7 @@ void *ft_memchr(const void *s, int c, size_t n)
 	{
 		if (*(unsigned char *)s == (unsigned char)c)
 			return ((void *)s);
-		s++;
+		s = (char *)s + 1;
 	}
 	return (0);
 }

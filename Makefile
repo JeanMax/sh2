@@ -6,11 +6,12 @@
 #    By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/29 13:16:03 by mcanal            #+#    #+#              #
-#    Updated: 2015/02/15 18:29:03 by mcanal           ###   ########.fr        #
+#    Updated: 2015/09/15 00:00:44 by mcanal           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
 NAME =	ft_minishell2
+
 C_SRC =	main.c				error.c				handle_env.c		\
 		prompt.c			exec.c				signal.c
 C_BUI =	builtin.c			exit.c				env.c				\
@@ -19,45 +20,78 @@ C_RED =	redirection.c		space_error.c		simple_right.c		\
 		simple_left.c		double_right.c		double_left.c		\
 		simple_pipe.c		error_s_right.c		error_pipe.c		\
 		error_d_right.c
-O_DIR =	obj
+
+O_DIR = obj
+C_DIR = src
 VPATH =	src:src/builtin:src/redirection
+
 SRCC = 	$(C_SRC:%.c=src/%.c)		$(C_BUI:%.c=src/builtin/%.c)	\
 		$(C_RED:%.c=src/redirection/%.c)
-SRCO =	$(C_SRC:%.c=$(O_DIR)/%.o)	$(C_BUI:%.c=$(O_DIR)/%.o)		\
+OBJS =	$(C_SRC:%.c=$(O_DIR)/%.o)	$(C_BUI:%.c=$(O_DIR)/%.o)		\
 		$(C_RED:%.c=$(O_DIR)/%.o)	
-LIB =	libft/libft.a
-INC =	inc/header.h
-CC =	gcc
-RM =	rm -f
-CFLAGS = -Wall -Werror -Wextra -I./inc/
+DEPS =  $(OBJS:%.o=%.d)
 
-.PHONY: all lib soft debug optimize clean fclean zclean re
+LIB = libft/libft.a
+I_DIR = -I./libft/inc/ -I./inc/
+CFLAGS = -Wall -Wextra -Werror -O2
+RM = rm -rf
+MKDIR = mkdir -p
 
-all: 
-	@make -C libft
-	@$(MAKE) $(NAME)
+ifeq ($(shell uname), Linux)
+CC = clang-3.5
+else
+CC = clang
+endif
 
-$(NAME): $(SRCO) $(LIB) $(INC)
-	@$(CC) $(CFLAGS) $(SRCO) $(LIB) -o $@
+WHITE = \033[37;01m
+RED = \033[31;01m
+GREEN =  \033[32;01m
+BLUE =  \033[34;01m
+BASIC = \033[0m
+
+.PHONY: all debug debug_lib sanitize sanitize_lib me_cry lib clean fclean zclean re brute
+
+all: lib $(NAME)
+
+debug: CFLAGS = -g -ggdb -O2
+debug: debug_lib $(NAME)
+debug_lib:
+	@$(MAKE) -C libft debug
+
+sanitize: CFLAGS = -g -ggdb -O2 -fsanitize=address,undefined -ferror-limit=5
+sanitize: sanitize_lib $(NAME)
+sanitize_lib:
+	@$(MAKE) -C libft sanitize
+
+me_cry: CFLAGS += -Wpedantic -Wshadow -Wcast-qual -Wconversion -Wcast-align \
+				  -Wstrict-prototypes -Wmissing-prototypes -Wunreachable-code \
+				  -Winit-self -Wmissing-declarations -Wnonnull -Wuninitialized \
+				  -Wfloat-equal -Wbad-function-cast -Wundef -Waggregate-return \
+				  -Wstrict-overflow=5
+me_cry: lib $(NAME)
+
+lib:
+	@$(MAKE) -C libft
+
+-include $(DEPS)
+
+$(NAME): $(OBJS) $(LIB)
+	@$(CC) $(CFLAGS) $(I_DIR) $(OBJS) $(LIB) -o $@
+	@echo "$(BLUE)$(OBJS) $(WHITE)->$(RED) $@ $(BASIC)"
+	@echo "$(WHITE)flags:$(BASIC) $(CFLAGS)"
+	@echo "$(WHITE)compi:$(BASIC) $(CC)"
 
 $(O_DIR)/%.o: %.c
-	@$(RM) $(NAME)
-	@$(CC) $(CFLAGS) -c $^ -o $@
+	@$(CC) $(CFLAGS) $(I_DIR) -MMD -c $< -o $@
+	@echo "$(WHITE)$<\t->$(BLUE) $@ $(BASIC)"
 
-soft:
-	@$(RM) $(NAME)
-	@$(CC) $(SRCC) $(LIB) -o $(NAME)
-	@./$(NAME)
+$(OBJS): | $(O_DIR)
 
-debug: re
-	@$(CC) $(CFLAGS) -ggdb $(SRCO) $(LIB) -o $(NAME)
-	@gdb $(NAME)
-
-optimize: re
-	@$(CC) $(CFLAGS) -O2 $(SRCO) $(LIB) -o $(NAME)
+$(O_DIR):
+	@$(MKDIR) $(O_DIR)
 
 clean:
-	@$(RM) $(SRCO)
+	@$(RM) $(O_DIR)
 
 fclean: clean
 	@$(RM) $(NAME)
@@ -67,3 +101,4 @@ zclean: fclean
 
 re: fclean all
 
+brute: zclean all

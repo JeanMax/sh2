@@ -6,7 +6,7 @@
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/23 21:32:33 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/12 18:55:01 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/09/15 01:12:54 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,14 @@ static void		call_execve(char **cmd, t_env *e)
 	get_path(e);
 	if ((execve(cmd[0], cmd, e->env)) < 0)
 	{
-		(cmd[0][0] == '.' && cmd[0][1] == '/') ? error("exe", cmd[0]) : 0;
+		(cmd[0][0] == '.' && cmd[0][1] == '/') ? error("exe", cmd[0]) : (void)0;
 		i = 0;
 		while ((e->path)[i])
 		{
 			tmp = ft_strjoin((e->path)[i++], "/");
 			join = ft_strjoin(tmp, cmd[0]);
 			ft_memdel((void *)&tmp);
-			execve(join, cmd, e->env) >= 0 ? ft_memdel((void *)&join) : 0;
+			execve(join, cmd, e->env) >= 0 ? ft_memdel((void *)&join) : (void)0;
 			if ((execve(join, cmd, e->env)) >= 0)
 				break ;
 			ft_memdel((void *)&join);

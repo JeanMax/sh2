@@ -6,7 +6,7 @@
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/24 17:02:18 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/27 05:30:13 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/09/15 01:12:20 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void			prompt_loop(char **av, t_env *e)
 	{
 		prompt(e);
 		g_pid1 = g_pid2;
-		get_line(0, &line) ? NULL : ft_exit(0, av);
+		get_line(0, &line) ? (void)0 : ft_exit(0, av);
 		if (ft_strindex(line, ';') != -1)
 		{
 			semicolon(line, e);

@@ -6,7 +6,7 @@
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/11 20:13:58 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/12 20:34:28 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/09/15 01:13:11 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void			sig_handl(int sig)
 
 void				init(int ac, char **ae, t_env *e)
 {
-	ac > 1 ? error("arg", NULL) : 0;
+	ac > 1 ? error("arg", NULL) : (void)0;
 	signal(SIGINT, sig_handl);
 	signal(SIGFPE, sig_handl);
 	signal(29, sig_handl);

@@ -6,7 +6,7 @@
 /*   By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/04 15:44:28 by mcanal            #+#    #+#             */
-/*   Updated: 2014/11/09 21:14:48 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/09/11 19:24:44 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,16 @@
 
 #include "libft.h"
 
-int ft_strncmp(const char *s1, const char *s2, size_t n)
+int				ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	size_t	i;
-
-	i = 0;
-	while (i < n && s1[i] && s2[i])
+	if (!n)
+		return (0);
+	while (n && *s1 && *s2 && *s1 == *s2)
 	{
-		if (s1[i] != s2[i])
-			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
-		i++;
+		s1++;
+		s2++;
+		n--;
 	}
-	if (i == n)
-		i--;
-	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+	return (n ? (unsigned char)*s1 - (unsigned char)*s2 : \
+				(unsigned char)*(s1 - 1) - (unsigned char)*(s2 - 1));
 }

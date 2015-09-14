@@ -1,26 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lislast.c                                       :+:      :+:    :+:   */
+/*   ft_putdbl.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/11 04:32:18 by mcanal            #+#    #+#             */
-/*   Updated: 2014/11/22 14:25:45 by mcanal           ###   ########.fr       */
+/*   Created: 2015/02/18 05:46:14 by mcanal            #+#    #+#             */
+/*   Updated: 2015/09/11 18:44:28 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /*
-** Retourne 1 si l'élément courant est le dernier élément de la liste, 0 sinon.
+** print a double on stdout
+**	 while (swap < 1 && swap != 0)
+** this causes a warning and probably some bugs (line 30)
 */
 
 #include "libft.h"
 
-int	ft_lislast(t_lst **alst)
+void			ft_putdbl(double nbr)
 {
-	if (!alst)
-		return (0);
-	if ((*alst)->next == NULL)
-		return (1);
-	return (0);
+	int		i;
+	double	swap;
+
+	ft_putnbr((int)nbr);
+	ft_putchar('.');
+	nbr -= (int)nbr;
+	swap = nbr * 10;
+	while (swap < 1)
+	{
+		ft_putchar('0');
+		swap *= 10;
+	}
+	nbr *= 10000000;
+	i = 1;
+	while (nbr >= 10000000)
+	{
+		i *= 10;
+		nbr /= 10;
+	}
+	ft_putnbr((int)nbr % (10000000 / i));
 }

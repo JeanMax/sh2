@@ -6,7 +6,7 @@
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/25 18:44:22 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/12 20:22:43 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/09/15 01:20:53 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,20 @@ static int		tab_len(char **c, int len, char *s)
 		if ((ft_strchr(s, '>') || ft_strchr(s, '<') || ft_strchr(s, '|')))
 		{
 			len += (!ft_strcmp(s, "<<") || !ft_strcmp(s, ">>") ||\
-	!ft_strcmp(s, "|&") || !ft_strcmp(s, ">&") || !ft_strcmp(s, ">>&")) ? 1 : 0;
+					!ft_strcmp(s, "|&") || !ft_strcmp(s, ">&") || !ft_strcmp(s, ">>&")) ? 1 : 0;
 			len += (*s != '>' && *s != '<' && *s != '|' && *s != '&') ? 1 : 0;
 			s += ((*(s + 1) == '>' || *(s + 1) == '&') && *s == '>') ||\
-	(*(s + 1) == '<' && *s == '<') || (*(s + 1) == '&' && *s == '|') ? 1 : 0;
+				(*(s + 1) == '<' && *s == '<') || (*(s + 1) == '&' && *s == '|') ? 1 : 0;
 			while (*s)
 			{
 				if (*s == '>' || *s == '<' || *s == '|' || *s == '&')
 					len += *(s + 1) ? 2 : 1;
 				s += ((*(s + 1) == *s || *(s + 1) == '&') && *s == '>') || \
-		(*(s + 1) == *s && *s == '<') || (*(s + 1) == '&' && *s == '|') ? 2 : 1;
+					(*(s + 1) == *s && *s == '<') || (*(s + 1) == '&' && *s == '|') ? 2 : 1;
 			}
 			len -= (((*(s - 1) == *(s - 2) || ((*(s - 2) == '>' ||\
-		*(s - 2) == '|') && *(s - 1) == '&')) && (*(s - 2) == '>' ||\
-		*(s - 2) == '<' || *(s - 2) == '|'))) ? 2 : 1;
+												*(s - 2) == '|') && *(s - 1) == '&')) && (*(s - 2) == '>' ||\
+																							*(s - 2) == '<' || *(s - 2) == '|'))) ? 2 : 1;
 		}
 		len += !ft_strcmp(s - 3, ">>&") ? 0 : 1;
 		c++;
@@ -48,7 +48,7 @@ static int		tab_len(char **c, int len, char *s)
 	return (len);
 }
 
-static int		count_it(char *s1)
+static size_t	count_it(char *s1)
 {
 	size_t	i;
 
@@ -95,7 +95,7 @@ char			**spaces_error(char **cmd1)
 	int		i;
 
 	i = tab_len(cmd1, 0, 0);
-	cmd2 = (char **)malloc(sizeof(char *) * (i + 1));
+	cmd2 = (char **)malloc(sizeof(char *) * (size_t)(i + 1));
 	cmd2[i] = NULL;
 	add_spaces(cmd1, cmd2);
 	return (cmd2);

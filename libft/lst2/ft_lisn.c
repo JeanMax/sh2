@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lisn.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcanal <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/12 23:47:29 by mcanal            #+#    #+#             */
-/*   Updated: 2014/11/22 14:26:02 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/09/11 18:54:25 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@
 
 #include "libft.h"
 
-int ft_lisn(t_lst **alst, t_lst *lst)
+int				ft_lisn(t_lst **alst, t_lst *lst)
 {
 	t_lst	*tmp;
-	size_t	i;
+	int		i;
 
 	if (!alst || !lst)
 		return (0);

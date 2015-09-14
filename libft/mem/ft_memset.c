@@ -6,7 +6,7 @@
 /*   By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/04 15:40:57 by mcanal            #+#    #+#             */
-/*   Updated: 2014/11/09 21:28:32 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/09/11 18:55:31 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 #include "libft.h"
 
-void *ft_memset(void *s, int c, size_t n)
+void			*ft_memset(void *s, int c, size_t n)
 {
 	char *swap;
 
@@ -25,7 +25,7 @@ void *ft_memset(void *s, int c, size_t n)
 	{
 		swap = s;
 		while (n--)
-			*swap++ = c;
+			*swap++ = (char)c;
 	}
 	return (s);
 }

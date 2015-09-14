@@ -6,7 +6,7 @@
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/23 22:48:29 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/12 20:04:23 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/09/15 01:23:26 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void			fork_that(char **cmd, t_env *e, int *pipe_fd, char *all)
 	int				save_fd0;
 	int				save_fd1;
 
-	((g_pid2 = fork()) < 0) ? error("Fork", NULL) : NULL;
+	((g_pid2 = fork()) < 0) ? error("Fork", NULL) : (void)0;
 	if (!g_pid2)
 	{
 		save_fd0 = dup(0);
@@ -49,7 +49,7 @@ static void			fork_that(char **cmd, t_env *e, int *pipe_fd, char *all)
 
 static int			get_that_line(int const fd, char **a)
 {
-	int				i;
+	ssize_t			i;
 	int				stop;
 	int				n;
 	char			buf[BUFF_SIZE];
@@ -61,7 +61,7 @@ static int			get_that_line(int const fd, char **a)
 	while ((i = read(fd, buf, BUFF_SIZE)) > 0)
 	{
 		buf[i] = '\0';
-		*a = (char *)ft_realloc((void *)*a, ft_strlen(*a), ft_strlen(*a) + i);
+		*a = (char *)ft_realloc((void *)*a, ft_strlen(*a), ft_strlen(*a) + (size_t)i);
 		ft_strcat(*a, buf);
 		if ((stop = ft_strindex(*a, '\n')) != -1)
 		{
@@ -69,7 +69,7 @@ static int			get_that_line(int const fd, char **a)
 			break ;
 		}
 	}
-	*a = ft_realloc((void *)*a, ft_strlen(*a), stop + 1);
+	*a = ft_realloc((void *)*a, ft_strlen(*a), (size_t)stop + 1);
 	if (!*a || i < 0 || !n)
 		return (0);
 	return (1);
@@ -130,7 +130,7 @@ void				doble_left(char **cmd, t_env *e)
 		return ;
 	get_text(&all, cmd[i + 1]);
 	compress_cmd(cmd, i);
-	pipe(pipe_fd) < 0 ? error("Pipe", NULL) : NULL;
+	pipe(pipe_fd) < 0 ? error("Pipe", NULL) : (void)0;
 	fork_that(cmd, e, pipe_fd, all);
 	ft_memdel((void *)&all);
 }

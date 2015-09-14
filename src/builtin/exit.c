@@ -6,7 +6,7 @@
 /*   By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/12 07:42:30 by mcanal            #+#    #+#             */
-/*   Updated: 2015/01/20 13:16:06 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/09/15 01:13:41 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_exit(int ac, char **av)
 {
 	while (av[ac])
 		ac++;
-	ac > 2 ? ft_putendl("exit: Expression Syntax.") : NULL;
+	ac > 2 ? ft_putendl("exit: Expression Syntax.") : (void)0;
 	if (ac > 2)
 		return ;
 	else if (ac == 2)

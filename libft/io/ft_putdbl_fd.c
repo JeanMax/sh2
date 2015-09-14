@@ -1,26 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lislast.c                                       :+:      :+:    :+:   */
+/*   ft_putdbl_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/11 04:32:18 by mcanal            #+#    #+#             */
-/*   Updated: 2014/11/22 14:25:45 by mcanal           ###   ########.fr       */
+/*   Created: 2015/02/18 05:46:14 by mcanal            #+#    #+#             */
+/*   Updated: 2015/02/18 06:25:25 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /*
-** Retourne 1 si l'élément courant est le dernier élément de la liste, 0 sinon.
+** print a double on specied file descriptor
 */
 
 #include "libft.h"
 
-int	ft_lislast(t_lst **alst)
+void			ft_putdbl_fd(double nbr, int fd)
 {
-	if (!alst)
-		return (0);
-	if ((*alst)->next == NULL)
-		return (1);
-	return (0);
+	int			i;
+
+	ft_putnbr_fd((int)nbr, fd);
+	ft_putchar_fd('.', fd);
+	nbr -= (int)nbr;
+	nbr *= 10000000;
+	i = 1;
+	while (nbr >= 10000000)
+	{
+		i *= 10;
+		nbr /= 10;
+	}
+	ft_putnbr_fd((int)nbr % (10000000 / i), fd);
 }

@@ -6,7 +6,7 @@
 /*   By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/12 07:40:39 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/12 19:38:02 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/09/15 01:19:04 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void		var_exist(t_env *e, char *var, char *val)
 	j = 0;
 	while ((e->env)[j] && ft_strncmp((e->env)[j], var,
 						(int)ft_strlen(var) > ft_strindex((e->env)[j], '=') ?
-						(int)ft_strlen(var) : ft_strindex((e->env)[j], '=')))
+						ft_strlen(var) : (size_t)ft_strindex((e->env)[j], '=')))
 		j++;
 	if ((e->env)[j])
 	{
@@ -49,8 +49,8 @@ void			ft_setenv(char **av, t_env *e)
 	while (av[ac])
 		ac++;
 	ac == 1 ? ft_strcpy(av[0], "env") : NULL;
-	ac == 1 ? launch_builtin(av, e) : NULL;
-	ac > 3 ? ft_putendl("setenv: Too many arguments.") : NULL;
+	ac == 1 ? launch_builtin(av, e) : (void)0;
+	ac > 3 ? ft_putendl("setenv: Too many arguments.") : (void)0;
 	if (ac == 1 || ac > 3)
 		return ;
 	if (ft_strindex(av[1], '=') != -1)

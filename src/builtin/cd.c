@@ -6,7 +6,7 @@
 /*   By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/12 07:40:00 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/11 00:52:46 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/09/15 01:17:59 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	go_home(t_env *e)
 	launch_builtin(av, e);
 	ft_freestab(av);
 	av = ft_strcmp(pwd, home) ? set_av("PWD", home, e, 1) : NULL;
-	ft_strcmp(pwd, home) ? ft_freestab(av) : 0;
+	ft_strcmp(pwd, home) ? ft_freestab(av) : (void)0;
 	ft_memdel((void *)&home);
 	ft_memdel((void *)&pwd);
 }
@@ -89,7 +89,7 @@ static void	go_to(char *path, t_env *e)
 	if (!(av = set_av("PWD", path, e, 1)))
 		return ;
 	ft_freestab(av);
-	free_it ? ft_memdel((void *)&path) : NULL;
+	free_it ? ft_memdel((void *)&path) : (void)0;
 }
 
 void		ft_cd(char **av, t_env *e)
@@ -102,12 +102,12 @@ void		ft_cd(char **av, t_env *e)
 	ac = 0;
 	while (av[ac])
 		ac++;
-	ac > 2 ? ft_putendl("cd: Too many arguments.") : NULL;
+	ac > 2 ? ft_putendl("cd: Too many arguments.") : (void)0;
 	if (ac > 2)
 		return ;
-	ac == 1 ? go_home(e) : NULL;
-	(ac > 1 && !ft_strcmp(av[1], "-")) ? go_previous(e) : NULL;
-	(ac > 1 && ft_strcmp(av[1], "-")) ? go_to(av[1], e) : NULL;
+	ac == 1 ? go_home(e) : (void)0;
+	(ac > 1 && !ft_strcmp(av[1], "-")) ? go_previous(e) : (void)0;
+	(ac > 1 && ft_strcmp(av[1], "-")) ? go_to(av[1], e) : (void)0;
 	pwd = ft_strdup(getcwd(buf, PATH_SIZE));
 	home = get_env("HOME", e);
 	if (!(av = set_av("PWD", (ft_strncmp(pwd, "/Volumes/Data", 13) ||\
